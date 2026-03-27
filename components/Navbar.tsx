@@ -13,12 +13,13 @@ import Image from "next/image";
 import { FaChevronDown } from "react-icons/fa";
 import Link from "next/link";
 
-const cities = [
-  { name: "New York", icon: FiMapPin },
-  { name: "London", icon: FiGlobe },
-  { name: "Tokyo", icon: FiNavigation },
-  { name: "Dubai", icon: FiSun },
-  { name: "Singapore", icon: FiCloud },
+// Project data for dropdown menu
+const projects = [
+  { name: "Khatushyamji", slug: "shyam-vihar-khatushyamji", icon: FiMapPin },
+  { name: "London", slug: "london", icon: FiGlobe },
+  { name: "Tokyo", slug: "tokyo", icon: FiNavigation },
+  { name: "Dubai", slug: "dubai", icon: FiSun },
+  { name: "Singapore", slug: "singapore", icon: FiCloud },
 ];
 
 export default function Navbar() {
@@ -71,7 +72,12 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="shrink-0 flex items-center space-x-3 cursor-pointer">
-            <Image src="/Images/logo.png" alt="" width={100} height={50} />
+            <Image
+              src="/Images/logo.png"
+              alt="JMV Developers"
+              width={100}
+              height={50}
+            />
             <motion.div
               animate={{
                 color: isScrolled ? "#D97706" : "#ffffff",
@@ -105,7 +111,7 @@ export default function Navbar() {
               About
             </Link>
 
-            {/* Services Dropdown */}
+            {/* Projects Dropdown */}
             <div
               className="relative"
               onMouseEnter={() => setIsServicesOpen(true)}
@@ -132,22 +138,25 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-100 py-2"
+                    className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50"
                   >
-                    {cities.map((city, index) => (
-                      <motion.a
-                        key={city.name}
-                        href={`#${city.name.toLowerCase()}`}
+                    {projects.map((project, index) => (
+                      <motion.div
+                        key={project.name}
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.05 }}
-                        className="flex items-center space-x-3 px-4 py-3 hover:bg-blue-100 transition-colors"
                       >
-                        <city.icon className="text-blue-600 text-lg" />
-                        <span className="text-gray-700 font-medium">
-                          {city.name}
-                        </span>
-                      </motion.a>
+                        <Link
+                          href={`/projects/${project.slug}`}
+                          className="flex items-center space-x-3 px-4 py-3 hover:bg-blue-100 transition-colors"
+                        >
+                          <project.icon className="text-blue-600 text-lg" />
+                          <span className="text-gray-700 font-medium">
+                            {project.name}
+                          </span>
+                        </Link>
+                      </motion.div>
                     ))}
                   </motion.div>
                 )}
@@ -159,7 +168,7 @@ export default function Navbar() {
               className="transition-colors"
               style={{ color: isScrolled ? "#374151" : "#ffffff" }}
             >
-              Carrer
+              Career
             </Link>
             <Link
               href="/news"
@@ -172,30 +181,32 @@ export default function Navbar() {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <motion.button
-              animate={{
-                backgroundColor: isScrolled ? "#111827" : "#ffffff",
-                color: isScrolled ? "#ffffff" : "#111827",
-                scale: isScrolled ? 0.95 : 1,
-              }}
-              transition={{ duration: 0.3 }}
-              className="px-6 py-2.5 rounded-full transition-colors flex items-center space-x-2"
-            >
-              <span>Contact Us</span>
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            <Link href="/contact">
+              <motion.button
+                animate={{
+                  backgroundColor: isScrolled ? "#111827" : "#ffffff",
+                  color: isScrolled ? "#ffffff" : "#111827",
+                  scale: isScrolled ? 0.95 : 1,
+                }}
+                transition={{ duration: 0.3 }}
+                className="px-6 py-2.5 rounded-full transition-colors flex items-center space-x-2"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </motion.button>
+                <span>Contact Us</span>
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </motion.button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
