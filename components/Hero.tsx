@@ -7,8 +7,7 @@ import { FiPlay, FiMail, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 const slides = [
   {
     id: 1,
-    image:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    image: "/Images/hero1.jpg",
     tag: "Building the New India.",
     title: "WELCOME TO JMV DEVELOPERS.",
     subtitle:
@@ -16,8 +15,7 @@ const slides = [
   },
   {
     id: 2,
-    image:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80",
+    image: "/Images/hero2.jpg",
     tag: "OUR WORK IS OUR PASSION",
     title: "It's all about the PASSION.",
     subtitle:
@@ -25,8 +23,7 @@ const slides = [
   },
   {
     id: 3,
-    image:
-      "https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80",
+    image: "/Images/hero3.jpg",
     tag: "Innovation First",
     title: "BUILDING A MODERN HOUSE.",
     subtitle:

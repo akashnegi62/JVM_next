@@ -25,8 +25,7 @@ const newsItems: NewsItem[] = [
   {
     id: 1,
     title: "Yamuna expressway to soon have LED lights, crash barriers and more",
-    image:
-      "https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&w=800&q=80",
+    image: "/Images/yamuna.jpg",
     category: "Real Estate",
     author: "Admin",
   },
@@ -34,42 +33,23 @@ const newsItems: NewsItem[] = [
     id: 2,
     title:
       "30 acres along Yamuna Expressway will be allotted to CRPF for a base",
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+    image: "/Images/30acre.jpeg",
     category: "Real Estate",
     author: "Admin",
   },
   {
     id: 3,
     title: "JMV DEVELOPERS FARM",
-    image:
-      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
+    image: "/Images/jewar.jpg",
     category: "Real Estate",
     author: "Admin",
-    isVideo: true,
+    isVideo: false,
     videoUrl: "https://youtube.com",
   },
   {
     id: 4,
     title: "New residential projects launching in Ghaziabad",
-    image:
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80",
-    category: "Real Estate",
-    author: "Admin",
-  },
-  {
-    id: 5,
-    title: "Infrastructure development updates in NCR region",
-    image:
-      "https://images.unsplash.com/photo-1449844902652-69419b9f356f?auto=format&fit=crop&w=800&q=80",
-    category: "Real Estate",
-    author: "Admin",
-  },
-  {
-    id: 6,
-    title: "Property investment trends in 2024",
-    image:
-      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80",
+    image: "/Images/118.jpg",
     category: "Real Estate",
     author: "Admin",
   },

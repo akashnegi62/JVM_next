@@ -1,19 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FiEye, FiTarget, FiHeart } from "react-icons/fi";
 
 interface SectionProps {
   title: string;
   description: string;
-  icon: React.ReactNode;
   image: string;
 }
 
 interface SectionData {
   title: string;
   description: string;
-  icon: React.ReactNode;
   image: string;
 }
 
@@ -48,12 +45,7 @@ const cardVariants = {
   },
 } as const;
 
-const SectionCard: React.FC<SectionProps> = ({
-  title,
-  description,
-  icon,
-  image,
-}) => {
+const SectionCard: React.FC<SectionProps> = ({ title, description, image }) => {
   return (
     <motion.div
       variants={cardVariants}
@@ -79,14 +71,6 @@ const SectionCard: React.FC<SectionProps> = ({
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0.6 }}
         />
-
-        {/* Icon */}
-        <motion.div
-          className="absolute top-4 left-4 z-20 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg"
-          whileHover={{ scale: 1.1, rotate: 5 }}
-        >
-          <div className="text-blue-600">{icon}</div>
-        </motion.div>
 
         {/* Gradient line */}
         <motion.div
@@ -150,25 +134,19 @@ export default function About() {
       title: "VISION",
       description:
         "To building significantly to create the new India and become the India's most valuable real estate company.",
-      icon: <FiEye className="w-6 h-6" />,
-      image:
-        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80",
+      image: "/Images/vision.jpg",
     },
     {
       title: "MISSION",
       description:
         "To achieve international standards of excellence with a focus on quality, aesthetics and customer satisfaction.",
-      icon: <FiTarget className="w-6 h-6" />,
-      image:
-        "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1000&q=80",
+      image: "/Images/mission.jpg",
     },
     {
       title: "VALUE",
       description:
         "Respect and falling in line for all community, environmental and legal requirements.",
-      icon: <FiHeart className="w-6 h-6" />,
-      image:
-        "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1000&q=80",
+      image: "/Images/value.jpg",
     },
   ];
 

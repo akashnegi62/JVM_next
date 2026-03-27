@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FiBriefcase, FiUsers } from "react-icons/fi";
 import Image from "next/image";
 
 const textVariants = {
@@ -114,7 +113,6 @@ export default function Career() {
               viewport={{ once: true, margin: "-50px" }}
             >
               <div className="flex items-center mb-6">
-                <FiBriefcase className="w-8 h-8 text-blue-600 mr-3" />
                 <h2 className="text-3xl font-bold text-gray-800">Jobs Title</h2>
               </div>
               <ul className="list-disc pl-11">
@@ -138,7 +136,6 @@ export default function Career() {
               viewport={{ once: true, margin: "-50px" }}
             >
               <div className="flex items-center mb-6">
-                <FiUsers className="w-8 h-8 text-purple-600 mr-3" />
                 <h2 className="text-3xl font-bold text-gray-800">Skill Sets</h2>
               </div>
               <ul className="list-disc pl-11">

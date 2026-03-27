@@ -19,8 +19,7 @@ const newsPosts: NewsPost[] = [
     id: 1,
     title: "Yamuna e-way to expand to 8 lanes for Jewar airport",
     author: "Admin",
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+    image: "/Images/eway.jpg",
     category: "Real Estate",
     height: "h-[500px]",
   },
@@ -29,8 +28,7 @@ const newsPosts: NewsPost[] = [
     title:
       "Delhi-Mumbai 12-hour Expressway to come soon:List of expressways that you must know",
     author: "Admin",
-    image:
-      "https://images.unsplash.com/photo-1449844902652-69419b9f356f?auto=format&fit=crop&w=800&q=80",
+    image: "/Images/delhi.jpeg",
     category: "Real Estate",
     height: "h-72",
   },
@@ -38,8 +36,7 @@ const newsPosts: NewsPost[] = [
     id: 3,
     title: "Yamuna expressway to soon have LED lights, crash barriers and more",
     author: "Admin",
-    image:
-      "https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&w=800&q=80",
+    image: "/Images/yamuna.jpg",
     category: "Real Estate",
     height: "h-72",
   },
@@ -48,27 +45,25 @@ const newsPosts: NewsPost[] = [
     title:
       "30 acres along Yamuna Expressway will be allotted to CRPF for a base",
     author: "Admin",
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+    image: "/Images/30acre.jpeg",
     category: "Real Estate",
     height: "h-80",
   },
   {
     id: 5,
-    title: "JMV DEVELOPERS FARM",
+    title:
+      "118 More Owners Agree For Land Acquisition For Jewar Airport, Says MLA",
     author: "Admin",
-    image:
-      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
+    image: "/Images/118.jpg",
     category: "Real Estate",
-    isVideo: true,
+    isVideo: false,
     height: "h-96",
   },
   {
     id: 6,
     title: "Jewar International Airport in Greater Noida to be reality soon",
     author: "Admin",
-    image:
-      "https://images.unsplash.com/photo-1569154941150-2fe8c5665a77?auto=format&fit=crop&w=800&q=80",
+    image: "/Images/jewar.jpg",
     category: "Real Estate",
     height: "h-64",
   },
@@ -105,7 +100,7 @@ export default function News() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')`,
+            backgroundImage: `url('/Images/news.jpg')`,
           }}
         />
 
@@ -167,7 +162,7 @@ export default function News() {
               <div className={`relative ${post.height} w-full overflow-hidden`}>
                 <Image
                   src={post.image}
-                  alt=''
+                  alt=""
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />

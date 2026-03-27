@@ -20,8 +20,7 @@ const projects: Project[] = [
     description:
       'A combination of premium features and a "Great place to live" are the statements come true with Harit Homes Plots',
     cost: "Rs. 826500000",
-    image:
-      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    image: "/Images/harti.jpeg",
     location: "Sector 45, Gurgaon",
   },
   {
@@ -30,8 +29,7 @@ const projects: Project[] = [
     description:
       "Green View Farms is a eco friendly planned society with lush green environments which spreads across 100 acres of area.",
     cost: "Rs. 150 Crore",
-    image:
-      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    image: "/Images/greenfarm.jpeg",
     location: "NH-48, Jaipur",
   },
   {
@@ -40,8 +38,7 @@ const projects: Project[] = [
     description:
       "Lakshya has evolved into one of the fastest growing real estate development companies in India.",
     cost: "Rs. 655,440,000",
-    image:
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    image: "/Images/lakshay.jpeg",
     location: "Whitefield, Bangalore",
   },
 ];

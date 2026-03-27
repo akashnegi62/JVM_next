@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FiEye, FiTarget, FiHeart } from "react-icons/fi";
 import Image from "next/image";
 
 const textVariants = {
@@ -25,7 +24,7 @@ export default function About() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')`,
+            backgroundImage: `url('/Images/aboutimg.jpg')`,
           }}
         />
 
@@ -85,7 +84,6 @@ export default function About() {
               viewport={{ once: true, margin: "-50px" }}
             >
               <div className="flex items-center mb-6">
-                <FiEye className="w-8 h-8 text-blue-600 mr-3" />
                 <h2 className="text-3xl font-bold text-gray-800">Vision:</h2>
               </div>
               <ul className="list-disc pl-11 space-y-3">
@@ -103,7 +101,6 @@ export default function About() {
               viewport={{ once: true, margin: "-50px" }}
             >
               <div className="flex items-center mb-6">
-                <FiTarget className="w-8 h-8 text-purple-600 mr-3" />
                 <h2 className="text-3xl font-bold text-gray-800">Mission:</h2>
               </div>
               <ul className="list-disc pl-11 space-y-2">
@@ -130,7 +127,6 @@ export default function About() {
               viewport={{ once: true, margin: "-50px" }}
             >
               <div className="flex items-center mb-6">
-                <FiHeart className="w-8 h-8 text-orange-600 mr-3" />
                 <h2 className="text-3xl font-bold text-gray-800">Value:</h2>
               </div>
               <ul className="list-disc pl-11 space-x-2">
@@ -163,12 +159,11 @@ export default function About() {
                 className="relative flex justify-center"
               >
                 {/* Image Container - Smaller Size */}
-                <div className="relative w-full max-w-md rounded-sm overflow-hidden shadow-2xl">
+                <div className="relative h-[50vh] w-full max-w-md rounded-sm overflow-hidden shadow-2xl">
                   <Image
-                    src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    src="/Images/about.gif"
                     alt="JMV Developers Building"
-                    width={500}
-                    height={500}
+                    fill
                     className="w-full h-auto object-cover"
                     priority
                   />
