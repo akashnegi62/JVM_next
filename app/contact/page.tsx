@@ -1,263 +1,470 @@
+// app/contact/page.tsx
 "use client";
 
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState, FormEvent } from "react";
+import Image from "next/image";
+import {
+  FaArrowRight,
+  FaMapMarkerAlt,
+  FaPhone,
+  FaEnvelope,
+  FaUser,
+} from "react-icons/fa";
 
-const textVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.48, 0.15, 0.25, 0.96] as const,
-    },
+// Animation variants
+const fadeInUp = {
+  initial: { opacity: 0, y: 40 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+};
+
+const staggerContainer = {
+  animate: {
+    transition: { staggerChildren: 0.12 },
   },
 };
 
+const imageReveal = {
+  initial: { scale: 1.1, opacity: 0 },
+  animate: { scale: 1, opacity: 1 },
+  transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+};
+
 export default function Contact() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log(formData);
-    alert("Thank you for your message! We will get back to you soon.");
-    setFormData({ name: "", email: "", phone: "", message: "" });
-  };
+  // Scroll progress for hero parallax
+  const { scrollYProgress } = useScroll();
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.15], [1, 1.05]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Simulate form submission
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    console.log("Form submitted:", formData);
+    setFormData({ name: "", email: "", phone: "", message: "" });
+    setIsSubmitting(false);
+
+    // Show success message (you can add a toast notification here)
+    alert("Thank you! We'll get back to you soon.");
   };
 
   return (
-    <div className="relative">
-      {/* Hero Banner with Background Image */}
-      <section className="relative h-100 flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-fixed"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')`,
-          }}
-        />
+    <div
+      ref={containerRef}
+      className="min-h-screen bg-white overflow-x-hidden font-sans text-gray-900"
+    >
+      {/* HERO SECTION */}
+      <section className="relative h-screen flex items-end">
+        <motion.div
+          style={{ scale: heroScale }}
+          className="absolute inset-0 z-0"
+        >
+          <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/20 to-transparent z-10" />
+          <Image
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80"
+            alt="JMV Contact"
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/60 to-black/40" />
+        </motion.div>
 
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/50" />
-
-        {/* Content */}
-        <div className="relative z-10 text-center px-4">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+        {/* Bottom Left Text */}
+        <motion.div
+          style={{ opacity: heroOpacity }}
+          className="relative z-20 px-6 pb-20 md:pb-32 max-w-7xl mx-auto w-full"
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold text-white mb-4"
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-left"
           >
-            CONTACT US
-          </motion.h1>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-white/80 text-sm md:text-base uppercase tracking-[0.4em] ml-8 mb-4"
+            >
+              Get In Touch
+            </motion.p>
+            <motion.h1 className="text-[15vw] md:text-[10vw] lg:text-[8vw] font-bold text-white tracking-tighter leading-none">
+              CONTACT {""} US
+            </motion.h1>
+          </motion.div>
+        </motion.div>
+      </section>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto"
+      {/* INTRO SECTION */}
+      <section className="py-24 md:py-32 bg-white">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.div
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, margin: "-100px" }}
+            className="space-y-8"
           >
-            Get in touch with us for any inquiries or assistance
-          </motion.p>
+            <motion.h1
+              variants={fadeInUp}
+              className="text-2xl md:text-3xl lg:text-4xl text-gray-900 leading-relaxed font-light"
+            >
+              Have a question or ready to start your real estate journey? Reach
+              out to our team. We &apos; re here to help you find the perfect
+              property and guide you through every step.
+            </motion.h1>
+          </motion.div>
         </div>
       </section>
 
-      {/* Main Content Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-          {/* Left Content - Contact Details */}
-          <div className="order-2 lg:order-1 space-y-12">
-            {/* Introduction */}
+      {/* CONTACT FORM SECTION */}
+      <section className="relative py-24 md:py-32 bg-gray-50 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
+            {/* Left: Contact Form */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              initial={{ opacity: 0, x: -60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7 }}
+              className="order-2 md:order-1"
             >
-              <h2 className="text-3xl font-bold text-gray-800 mb-6">
-                Let &apos;s Start a Conversation
-              </h2>
-              <p className="text-gray-600 leading-relaxed text-lg">
-                We&apos;d love to hear from you. Whether you have a question
-                about our projects, pricing, or anything else, our team is ready
-                to answer all your questions.
-              </p>
-            </motion.div>
-
-            {/* Contact Details */}
-            <motion.div
-              variants={textVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-              className="space-y-8"
-            >
-              {/* Address */}
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 mb-3">
-                  Address:
-                </h3>
-                <p className="text-gray-600 leading-relaxed text-lg pl-4 border-l-4 border-orange-500">
-                  Office No: 7, Ist floor, Mahalaxmi Square, Indirapuram
-                  <br />
-                  Abhay Khand-2, Ghaziabad -201010 (Uttar Pradesh)
-                </p>
-              </div>
-
-              {/* Phone */}
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 mb-3">Phone:</h3>
-                <p className="text-gray-600 leading-relaxed text-lg pl-4 border-l-4 border-orange-500">
-                  +91-8383041206
-                </p>
-              </div>
-
-              {/* Email */}
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 mb-3">Email:</h3>
-                <p className="text-gray-600 leading-relaxed text-lg pl-4 border-l-4 border-orange-500">
-                  info@jmvdevelopers.com
-                </p>
-              </div>
-
-              {/* Business Hours */}
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 mb-3">
-                  Business Hours:
-                </h3>
-                <p className="text-gray-600 leading-relaxed text-lg pl-4 border-l-4 border-orange-500">
-                  Monday - Saturday: 10:00 AM - 7:00 PM
-                  <br />
-                  Sunday: Closed
-                </p>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Right Form - Sticky */}
-          <div className="order-1 lg:order-2">
-            <div className="sticky top-20">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.6 }}
+                className="text-6xl md:text-7xl lg:text-8xl font-bold text-gray-200 leading-none tracking-tighter mb-8 select-none flex items-center gap-4"
               >
-                <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-6">
-                    Send us a Message
-                  </h3>
+                Form
+              </motion.h2>
 
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Name Field */}
-                    <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-sm font-semibold text-gray-700 mb-2"
-                      >
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all outline-none"
-                        placeholder="John Doe"
-                      />
-                    </div>
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Name Field */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="relative"
+                >
+                  <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your Name"
+                    required
+                    className="w-full pl-12 pr-4 py-4 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-colors text-gray-900 placeholder-gray-400"
+                  />
+                </motion.div>
 
-                    {/* Email Field */}
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-sm font-semibold text-gray-700 mb-2"
-                      >
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all outline-none"
-                        placeholder="john@example.com"
-                      />
-                    </div>
+                {/* Email Field */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="relative"
+                >
+                  <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Your Email"
+                    required
+                    className="w-full pl-12 pr-4 py-4 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-colors text-gray-900 placeholder-gray-400"
+                  />
+                </motion.div>
 
-                    {/* Phone Field */}
-                    <div>
-                      <label
-                        htmlFor="phone"
-                        className="block text-sm font-semibold text-gray-700 mb-2"
-                      >
-                        Phone Number *
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all outline-none"
-                        placeholder="+91 1234567890"
-                      />
-                    </div>
+                {/* Phone Field */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="relative"
+                >
+                  <FaPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="Phone Number"
+                    required
+                    className="w-full pl-12 pr-4 py-4 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-colors text-gray-900 placeholder-gray-400"
+                  />
+                </motion.div>
 
-                    {/* Message Field */}
-                    <div>
-                      <label
-                        htmlFor="message"
-                        className="block text-sm font-semibold text-gray-700 mb-2"
-                      >
-                        Your Message *
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        rows={5}
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all outline-none resize-none"
-                        placeholder="Tell us about your requirements..."
-                      />
-                    </div>
+                {/* Message Field */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 }}
+                  className="relative"
+                >
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Your Message"
+                    required
+                    rows={5}
+                    className="w-full pl-4 pr-4 py-4 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-colors text-gray-900 placeholder-gray-400 resize-none"
+                  />
+                </motion.div>
 
-                    {/* Submit Button */}
-                    <motion.button
-                      type="submit"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full py-4 bg-linear-to-r from-orange-500 to-red-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-                    >
-                      Send Message
-                    </motion.button>
-                  </form>
-                </div>
+                {/* Submit Button */}
+                <motion.button
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full px-10 py-4 bg-gray-900 text-white text-sm uppercase tracking-wider hover:bg-gray-800 transition-colors inline-flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? "Sending..." : "Send Message"}{" "}
+                  <FaArrowRight />
+                </motion.button>
+              </form>
+            </motion.div>
+
+            {/* Right: Image */}
+            <motion.div
+              initial={{ opacity: 0, x: 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="order-1 md:order-2 relative"
+            >
+              <motion.div
+                variants={imageReveal}
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true }}
+                className="relative h-100 mdh-150 w-full overflow-hidden rounded-2xl"
+              >
+                <Image
+                  src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&q=80"
+                  alt="Contact Us"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
               </motion.div>
-            </div>
+            </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* CONTACT DETAILS SECTION */}
+      <section className="relative py-24 md:py-32 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
+            {/* Left: Image */}
+            <motion.div
+              initial={{ opacity: 0, x: -60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7 }}
+              className="relative"
+            >
+              <motion.div
+                variants={imageReveal}
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true }}
+                className="relative h-100 mdh-150 w-full overflow-hidden rounded-2xl"
+              >
+                <Image
+                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80"
+                  alt="JMV Developers Office"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
+              </motion.div>
+            </motion.div>
+
+            {/* Right: Contact Details */}
+            <motion.div
+              initial={{ opacity: 0, x: 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-6xl md:text-7xl lg:text-8xl font-bold text-gray-100 leading-none tracking-tighter mb-8 select-none flex items-center gap-4"
+              >
+                IN TOUCH
+              </motion.h2>
+
+              <div className="space-y-8">
+                {/* Address Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="shrink-0 w-12 h-12 rounded-full bg-gray-900 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <FaMapMarkerAlt className="text-lg" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 text-lg mb-2">
+                        Address
+                      </h4>
+                      <p className="text-gray-600 leading-relaxed">
+                        Office No: 7, Ist floor, Mahalaxmi Square,
+                        <br />
+                        Indirapuram Abhay Khand-2,
+                        <br />
+                        Ghaziabad - 201010 (Uttar Pradesh)
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Phone Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="shrink-0 w-12 h-12 rounded-full bg-gray-900 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <FaPhone className="text-lg" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 text-lg mb-2">
+                        Phone No.
+                      </h4>
+                      <p className="text-gray-600 leading-relaxed">
+                        <a
+                          href="tel:+918383041206"
+                          className="hover:text-gray-900 transition-colors"
+                        >
+                          +91-8383041206 , +91-8630350119
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Email Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="shrink-0 w-12 h-12 rounded-full bg-gray-900 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <FaEnvelope className="text-lg" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 text-lg mb-2">
+                        Email ID
+                      </h4>
+                      <p className="text-gray-600 leading-relaxed">
+                        <a
+                          href="mailto:info@jmvdevelopers.com"
+                          className="hover:text-gray-900 transition-colors"
+                        >
+                          info@jmvdevelopers.com
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* MAP SECTION (Optional) */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Find Us Here
+            </h3>
+            <p className="text-gray-600">
+              Visit our office in Ghaziabad, Uttar Pradesh
+            </p>
+          </motion.div>
+
+          {/* Map Placeholder - Replace with actual Google Maps embed */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="relative h-100 md:h-150 rounded-2xl overflow-hidden bg-gray-200"
+          >
+            <Image
+              src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=1200&q=80"
+              alt="Map Location"
+              fill
+              className="object-cover opacity-80"
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center p-6 bg-white/90 rounded-xl shadow-lg">
+                <FaMapMarkerAlt className="text-4xl text-red-500 mx-auto mb-3" />
+                <p className="font-semibold text-gray-900">
+                  JMV Developers Office
+                </p>
+                <p className="text-sm text-gray-600">Indirapuram, Ghaziabad</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>

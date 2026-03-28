@@ -1,265 +1,176 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { FiMapPin, FiTrendingUp } from "react-icons/fi";
-import { useState } from "react";
+import React, { useState } from "react";
+import { motion, Variants } from "framer-motion";
+import { FiArrowRight } from "react-icons/fi";
 
-interface Project {
+// --- Types ---
+interface VerticalCard {
   id: number;
   title: string;
+  category: string;
   description: string;
-  cost: string;
   image: string;
-  location: string;
+  color: string;
 }
 
-const projects: Project[] = [
+// --- Data ---
+const verticals: VerticalCard[] = [
   {
     id: 1,
-    title: "HARIT HOMES",
-    description:
-      'A combination of premium features and a "Great place to live" are the statements come true with Harit Homes Plots',
-    cost: "Rs. 826500000",
-    image: "/Images/harti.jpeg",
-    location: "Sector 45, Gurgaon",
+    category: "RESIDENTIAL",
+    title: "Luxury Living Spaces",
+    description: "Crafting homes that define modern lifestyle.",
+    image:
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1000&auto=format&fit=crop",
+    color: "from-gray-900 to-transparent",
   },
   {
     id: 2,
-    title: "GREEN VIEW FARM",
-    description:
-      "Green View Farms is a eco friendly planned society with lush green environments which spreads across 100 acres of area.",
-    cost: "Rs. 150 Crore",
-    image: "/Images/greenfarm.jpeg",
-    location: "NH-48, Jaipur",
+    category: "RETAIL",
+    title: "Commercial Hubs",
+    description: "Destinations designed for commerce and community.",
+    image:
+      "https://images.unsplash.com/photo-1519567241046-7f570eee3d9f?q=80&w=1000&auto=format&fit=crop",
+    color: "from-gray-900 to-transparent",
   },
   {
     id: 3,
-    title: "LAKSHYA GROUP",
-    description:
-      "Lakshya has evolved into one of the fastest growing real estate development companies in India.",
-    cost: "Rs. 655,440,000",
-    image: "/Images/lakshay.jpeg",
-    location: "Whitefield, Bangalore",
+    category: "OFFICES",
+    title: "Urbana Premium",
+    description: "Business environments that inspire success and productivity.",
+    image:
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop",
+    color: "from-blue-900 to-transparent",
+  },
+  {
+    id: 4,
+    category: "SERVICED APARTMENTS",
+    title: "Comfort & Convenience",
+    description: "Short stays with long-lasting impressions.",
+    image:
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000&auto=format&fit=crop",
+    color: "from-gray-900 to-transparent",
+  },
+  {
+    id: 5,
+    category: "LEASING",
+    title: "Prime Properties",
+    description: "Flexible leasing options for every need.",
+    image:
+      "https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=1000&auto=format&fit=crop",
+    color: "from-gray-900 to-transparent",
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
+// --- Heading Animation Variants ---
+const headingVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.3,
-    },
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 };
 
-const cardVariants = {
-  hidden: { opacity: 0, scale: 0.9 },
+const subheadingVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut" as const,
-    },
-  },
-  hover: {
-    y: -10,
-    boxShadow:
-      "0 20px 40px -15px rgba(0, 0, 0, 0.15), 0 10px 20px -10px rgba(0, 0, 0, 0.1)",
-    transition: {
-      duration: 0.3,
-      ease: "easeInOut" as const,
-    },
+    y: 0,
+    transition: { delay: 0.2, duration: 0.6, ease: "easeOut" },
   },
 };
 
 export default function Projects() {
-  const [, setHoveredProject] = useState<number | null>(null);
+  const [activeId, setActiveId] = useState<number | null>(null);
 
   return (
-    <section className="min-h-screen bg-white py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <motion.h2
-            className="text-4xl md:text-5xl font-bold text-gray-800 mb-3"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            Our Projects
-          </motion.h2>
-          <motion.p
-            className="text-gray-500 text-lg font-light"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            See our recent projects
-          </motion.p>
-        </motion.div>
-
-        {/* Projects Grid */}
-        <motion.div
-          variants={containerVariants}
+    <section className="relative w-full min-h-screen bg-black overflow-hidden font-sans">
+      {/* HEADING SECTION */}
+      <div className="relative z-20 px-6 md:px-10 pt-16 pb-8 max-w-7xl mx-auto">
+        <motion.h1
+          className="text-4xl md:text-6xl font-light text-white tracking-tight"
+          variants={headingVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {projects.map((project) => (
+          Our <span className="font-serif italic text-amber-500">Projects</span>
+        </motion.h1>
+
+        <motion.p
+          className="text-neutral-400 text-lg md:text-xl mt-3 max-w-2xl"
+          variants={subheadingVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          See our recent projects
+        </motion.p>
+      </div>
+
+      {/* Cards Container */}
+      <div className="flex w-full h-[85vh] px-6 md:px-10">
+        {verticals.map((card) => {
+          const isActive = activeId === card.id;
+
+          return (
             <motion.div
-              key={project.id}
-              variants={cardVariants}
-              whileHover="hover"
-              onHoverStart={() => setHoveredProject(project.id)}
-              onHoverEnd={() => setHoveredProject(null)}
-              className="group relative bg-white rounded-lg overflow-hidden shadow-lg cursor-pointer"
+              key={card.id}
+              className="relative flex-1 overflow-hidden cursor-pointer group mr-3 last:mr-0"
+              initial={{ flex: 1 }}
+              animate={{ flex: isActive ? 3 : 1 }}
+              whileHover={{ flex: 3 }}
+              onHoverStart={() => setActiveId(card.id)}
+              onHoverEnd={() => setActiveId(null)}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
             >
-              {/* Image Container */}
-              <div className="relative h-64 overflow-hidden">
-                <motion.div
-                  className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent z-10"
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                />
-
-                <motion.img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.6 }}
-                />
-
-                {/* Project Tag */}
-                <motion.div
-                  className="absolute top-4 left-4 z-20 bg-linear-to-r from-orange-500 to-red-500 text-white px-4 py-1.5 rounded-lg text-sm font-semibold shadow-lg"
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  PROJECT
-                </motion.div>
-
-                {/* Location Badge */}
-                <motion.div
-                  className="absolute bottom-4 left-4 z-20 flex items-center text-white"
-                  initial={{ y: 20, opacity: 0 }}
-                  whileHover={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <FiMapPin className="w-4 h-4 mr-1" />
-                  <span className="text-sm font-medium">
-                    {project.location}
-                  </span>
-                </motion.div>
-
-                {/* View Project Button */}
-                <motion.div
-                  className="absolute inset-0 z-20 flex items-center justify-center"
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <motion.button
-                    className="bg-white text-gray-800 px-6 py-2.5 rounded-full font-semibold text-sm shadow-xl"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    View Details
-                  </motion.button>
-                </motion.div>
-              </div>
-
-              {/* Content Section */}
-              <div className="p-6">
-                <motion.h3
-                  className="text-xl font-bold text-gray-800 mb-3 group-hover:text-orange-600 transition-colors duration-300"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.6 }}
-                >
-                  {project.title}
-                </motion.h3>
-
-                <motion.p
-                  className="text-gray-600 text-sm leading-relaxed mb-4"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.7 }}
-                >
-                  {project.description}
-                </motion.p>
-
-                {/* Cost Section */}
-                <motion.div
-                  className="mt-6 bg-linear-to-r from-slate-900 to-blue-900 rounded-xl p-4 flex items-center justify-between"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.8 }}
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div>
-                    <p className="text-gray-400 text-xs mb-1">Project Cost</p>
-                    <p className="text-white font-bold text-lg">
-                      {project.cost}
-                    </p>
-                  </div>
-                  <motion.div
-                    className="bg-white/10 p-2 rounded-lg"
-                    whileHover={{ rotate: 15, scale: 1.1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <FiTrendingUp className="w-5 h-5 text-orange-400" />
-                  </motion.div>
-                </motion.div>
-              </div>
-
-              {/* Decorative Elements */}
-              <motion.div
-                className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-orange-400/20 to-red-400/20 rounded-bl-full"
-                initial={{ scale: 0 }}
-                whileHover={{ scale: 1 }}
-                transition={{ duration: 0.5 }}
+              {/* Background Image */}
+              <div
+                className={`absolute inset-0 w-full h-full bg-cover bg-center transition-all duration-700 ease-in-out
+                  ${isActive ? "grayscale-0 scale-105" : "grayscale scale-100"}
+                `}
+                style={{ backgroundImage: `url(${card.image})` }}
               />
-            </motion.div>
-          ))}
-        </motion.div>
 
-        {/* View All Button */}
-        <motion.div
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.6 }}
-        >
-          <motion.button
-            className="inline-flex items-center px-8 py-3 bg-linear-to-r from-orange-500 to-red-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl"
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 10px 30px rgba(239, 68, 68, 0.4)",
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-            View All Projects
-            <motion.span
-              animate={{ x: [0, 5, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
-              className="ml-2"
-            >
-              →
-            </motion.span>
-          </motion.button>
-        </motion.div>
+              {/* Overlay Gradient */}
+              <div
+                className={`absolute inset-0 bg-linear-to-t ${card.color} opacity-60 group-hover:opacity-40 transition-opacity duration-500`}
+              />
+
+              {/* Content Container */}
+              <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-10">
+                {/* Top Label */}
+                <span
+                  className={`text-white text-xs md:text-sm font-bold tracking-[0.2em] uppercase transition-all duration-500
+                  ${isActive ? "opacity-100 translate-y-0" : "opacity-70"}
+                `}
+                >
+                  {card.category}
+                </span>
+
+                {/* Bottom Details */}
+                <div
+                  className={`overflow-hidden transition-all duration-500 ease-in-out
+                  ${isActive ? "max-h-40 opacity-100 translate-y-0" : "max-h-0 opacity-0 translate-y-4"}
+                `}
+                >
+                  <h2 className="text-2xl md:text-3xl text-white font-semibold mb-2 leading-tight">
+                    {card.title}
+                  </h2>
+                  <p className="text-gray-300 text-sm md:text-base mb-4 line-clamp-2">
+                    {card.description}
+                  </p>
+
+                  {/* Read More Button */}
+                  <button className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white px-6 py-2 rounded-full text-sm font-medium transition-colors duration-300">
+                    READ MORE
+                    <FiArrowRight className="text-xs" />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );
