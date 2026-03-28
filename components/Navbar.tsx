@@ -2,26 +2,29 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  FiMapPin,
-  FiGlobe,
-  FiNavigation,
-  FiSun,
-  FiCloud,
-} from "react-icons/fi";
+import { FiMapPin } from "react-icons/fi";
 import Image from "next/image";
 import { FaChevronDown } from "react-icons/fa";
 import Link from "next/link";
 
 // Project data for dropdown menu
 const projects = [
-  { name: "Khatushyamji", slug: "shyam-vihar-khatushyamji", icon: FiMapPin },
-  { name: "London", slug: "london", icon: FiGlobe },
-  { name: "Tokyo", slug: "tokyo", icon: FiNavigation },
-  { name: "Dubai", slug: "dubai", icon: FiSun },
-  { name: "Singapore", slug: "singapore", icon: FiCloud },
+  { name: "JMV Homes Tonk Road", slug: "jmv-homes-tonk-road", icon: FiMapPin },
+  { name: "Starx City Bhiwadi", slug: "starx-city-bhiwadi", icon: FiMapPin },
+  {
+    name: "Shyam Vihar Mahalaxmi Temple",
+    slug: "shyam-vihar-mahalaxmi-temple",
+    icon: FiMapPin,
+  },
+  {
+    name: "Shyam Vihar Samota Ka Bas, Manda Mor",
+    slug: "shyam-vihar-samota-ka-bas",
+    icon: FiMapPin,
+  },
+  { name: "Agriculture", slug: "agriculture", icon: FiMapPin },
+  { name: "Harit Homes", slug: "harit-homes-bhiwadi", icon: FiMapPin },
+  { name: "Jewer Airport, Noida", slug: "jewer-airport-noida", icon: FiMapPin },
 ];
-
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
@@ -138,7 +141,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50"
+                    className="absolute top-full left-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50"
                   >
                     {projects.map((project, index) => (
                       <motion.div
@@ -151,7 +154,7 @@ export default function Navbar() {
                           href={`/projects/${project.slug}`}
                           className="flex items-center space-x-3 px-4 py-3 hover:bg-blue-100 transition-colors"
                         >
-                          <project.icon className="text-blue-600 text-lg" />
+                          <project.icon className="text-blue-600 text-sm" />
                           <span className="text-gray-700 font-medium">
                             {project.name}
                           </span>

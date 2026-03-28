@@ -32,8 +32,8 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: "shyam-vihar-khatushyamji",
-    name: "Shyam Vihar Khatushyamji",
+    slug: "jmv-homes-tonk-road",
+    name: "JMV Homes Tonk Road",
     city: "shyam vihar",
     tagline: "Luxury Living in the Heart of Manhattan",
     description:
@@ -69,9 +69,9 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "london",
-    name: "London Heights",
-    city: "London",
+    slug: "starx-city-bhiwadi",
+    name: "Starx City Bhiwadi",
+    city: "Bhiwadi",
     tagline: "Modern Architecture Meets British Elegance",
     description: "",
     images: [
@@ -102,9 +102,9 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "tokyo",
-    name: "Tokyo Sky Residences",
-    city: "Tokyo",
+    slug: "shyam-vihar-mahalaxmi-temple",
+    name: "Shyam Vihar Mahalaxmi Temple",
+    city: "Bhiwadi",
     tagline: "Innovation and Tradition Combined",
     description: "",
     images: [
@@ -135,9 +135,9 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "dubai",
-    name: "Dubai Marina Towers",
-    city: "Dubai",
+    slug: "shyam-vihar-samota-ka-bas",
+    name: "Shyam Vihar Samota Ka Bas, Manda Mor",
+    city: "shyam vihar",
     tagline: "Luxury Redefined in the Desert",
     description: "",
     images: [
@@ -163,8 +163,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "singapore",
-    name: "Singapore Gardens",
+    slug: "agriculture",
+    name: "Agriculture",
     city: "Singapore",
     tagline: "Green Living in the Garden City",
     description: "",
@@ -193,6 +193,62 @@ export const projects: Project[] = [
       { id: 1, title: "Green Building Certification", date: "Feb 2021" },
       { id: 2, title: "Sustainable Living Feature", date: "May 2021" },
       { id: 3, title: "Singapore Property Times", date: "Aug 2021" },
+    ],
+  },
+  {
+    slug: "harit-homes-bhiwadi",
+    name: "Harit Homes",
+    city: "Bhiwadi",
+    tagline: "Luxury Redefined in the Desert",
+    description: "",
+    images: [
+      "https://images.unsplash.com/photo-1512453979798-5ea904ac66de?w=800&q=80",
+      "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&q=80",
+    ],
+    features: ["Private Beach", "Yacht Club", "Infinity Pool", "Valet Parking"],
+    location: "Dubai Marina, UAE",
+    price: "Starting from AED 2,000,000",
+    status: "Ongoing",
+    area: "3000 sqft",
+    projectDetails: {
+      location: "Dubai Marina Waterfront",
+      surfaceArea: "185000 meter Sq",
+      yearCompleted: "September 2020",
+      value: "1200000000",
+      architect: "Zaha Hadid Architects",
+    },
+    mediaReports: [
+      { id: 1, title: "Dubai Luxury Property Awards", date: "Jan 2020" },
+      { id: 2, title: "Marina Development News", date: "Apr 2020" },
+      { id: 3, title: "Gulf Business Feature", date: "Jun 2020" },
+    ],
+  },
+  {
+    slug: "jewer-airport-noida",
+    name: "Jewer Airport, Noida",
+    city: "shyam vihar",
+    tagline: "Luxury Redefined in the Desert",
+    description: "",
+    images: [
+      "https://images.unsplash.com/photo-1512453979798-5ea904ac66de?w=800&q=80",
+      "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&q=80",
+    ],
+    features: ["Private Beach", "Yacht Club", "Infinity Pool", "Valet Parking"],
+    location: "Dubai Marina, UAE",
+    price: "Starting from AED 2,000,000",
+    status: "Ongoing",
+    area: "3000 sqft",
+    projectDetails: {
+      location: "Dubai Marina Waterfront",
+      surfaceArea: "185000 meter Sq",
+      yearCompleted: "September 2020",
+      value: "1200000000",
+      architect: "Zaha Hadid Architects",
+    },
+    mediaReports: [
+      { id: 1, title: "Dubai Luxury Property Awards", date: "Jan 2020" },
+      { id: 2, title: "Marina Development News", date: "Apr 2020" },
+      { id: 3, title: "Gulf Business Feature", date: "Jun 2020" },
     ],
   },
 ];
