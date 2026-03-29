@@ -1,197 +1,159 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiPlay, FiMail, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { MdOutlineLocationOn } from "react-icons/md";
 
-const slides = [
+// Define the slide data structure
+interface Slide {
+  id: number;
+  image: string;
+  title: string;
+  location: string;
+}
+
+const slides: Slide[] = [
   {
     id: 1,
-    image: "/Images/hero1.jpg",
-    tag: "Building the New India.",
-    title: "WELCOME TO JMV DEVELOPERS.",
-    subtitle:
-      "JMV Developers, established in 2008, is a trusted real estate brand known for quality, commitment, and reliable service, offering a wide range of property solutions backed by extensive industry experience.",
+    image:
+      "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=2070&auto=format&fit=crop",
+    title: "A Sanctuary Shaped by Sea & Forests",
+    location: "SIX SENSES LA SAGESSE",
   },
   {
     id: 2,
-    image: "/Images/hero2.jpg",
-    tag: "OUR WORK IS OUR PASSION",
-    title: "It's all about the PASSION.",
-    subtitle:
-      "We work in the dark -we do what we can -we give what we have. Our doubt is our passion and our passion is our task.",
+    image:
+      "https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=2134&auto=format&fit=crop",
+    title: "Where Nature Meets Pure Luxury",
+    location: "ALPINE RETREAT",
   },
   {
     id: 3,
-    image: "/Images/hero3.jpg",
-    tag: "Innovation First",
-    title: "BUILDING A MODERN HOUSE.",
-    subtitle:
-      "We bring creativity and expertise together to deliver exceptional results for our clients worldwide.",
+    image:
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2070&auto=format&fit=crop",
+    title: "Escape to an Island Paradise",
+    location: "TROPICAL HAVEN",
+  },
+  {
+    id: 4,
+    image:
+      "https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=2070&auto=format&fit=crop",
+    title: "Tranquility Beyond the Horizon",
+    location: "OCEAN VIEW VILLA",
+  },
+  {
+    id: 5,
+    image:
+      "https://images.unsplash.com/photo-1582610116397-edb318620f90?q=80&w=2070&auto=format&fit=crop",
+    title: "Find Your Inner Peace",
+    location: "DESERT OASIS",
   },
 ];
 
-export default function Hero() {
-  const [currentSlide, setCurrentSlide] = useState(0);
+const SLIDE_DURATION = 5000; // 5 seconds per slide
 
-  // Auto-swipe every 5 seconds
+export default function Hero() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Handle the automatic slide progression
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 2000);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+    }, SLIDE_DURATION);
 
     return () => clearInterval(timer);
   }, []);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Images with Carousel */}
-      <div className="absolute inset-0 z-0">
-        {/* Render all slides but control visibility */}
-        {slides.map((slide, index) => (
-          <motion.div
-            key={slide.id}
-            initial={false}
-            animate={{
-              opacity: index === currentSlide ? 1 : 0,
-              zIndex: index === currentSlide ? 10 : 0,
-            }}
-            transition={{
-              duration: 0.4,
-              ease: "easeInOut",
-            }}
-            className="absolute inset-0"
-            style={{ willChange: "opacity" }}
-          >
-            <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-              style={{ backgroundImage: `url("${slide.image}")` }}
-            />
-            <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/60 to-black/40" />
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Navigation Buttons */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 md:left-8 z-20 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300 group"
-        aria-label="Previous slide"
-      >
-        <FiChevronLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
-      </button>
-
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 md:right-8 z-20 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300 group"
-        aria-label="Next slide"
-      >
-        <FiChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-      </button>
-
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="max-w-2xl"
-          >
-            {/* Tag */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="flex items-center space-x-2 mb-6"
-            >
-              <svg
-                className="w-5 h-5 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
-              <span className="text-white/90 text-sm font-medium tracking-wider uppercase">
-                {slides[currentSlide].tag}
-              </span>
-            </motion.div>
-
-            {/* Main Heading */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.15 }}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6"
-            >
-              {slides[currentSlide].title}
-            </motion.h1>
-
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              className="text-lg text-gray-300 mb-10 max-w-xl leading-relaxed"
-            >
-              {slides[currentSlide].subtitle}
-            </motion.p>
-
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.25 }}
-              className="flex flex-col sm:flex-row gap-4"
-            >
-              <button className="group px-8 py-4 bg-linear-to-r from-orange-500 to-red-500 text-white rounded-full font-medium hover:shadow-lg hover:shadow-blue-600/25 transition-all flex items-center justify-center space-x-2">
-                <span>Explore projects</span>
-                <FiPlay className="group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <button className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-full font-medium hover:bg-white/20 transition-all flex items-center justify-center space-x-2">
-                <FiMail className="mr-2" />
-                <span>Contact us</span>
-              </button>
-            </motion.div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Dot Indicators */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-3">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`transition-all duration-300 rounded-full ${
-              currentSlide === index
-                ? "w-12 h-3 bg-white"
-                : "w-3 h-3 bg-white/40 hover:bg-white/60"
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
+    <section className="relative w-full h-screen overflow-hidden bg-zinc-900">
+      {/* Background Images with Crossfade */}
+      <AnimatePresence initial={false}>
+        <motion.div
+          key={currentIndex}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={slides[currentIndex].image}
+            alt={slides[currentIndex].title}
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
           />
-        ))}
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Gradient Overlays for readability */}
+      <div className="absolute inset-0 bg-black/20 z-10" />
+      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/80 to-transparent z-10" />
+      <div className="absolute inset-x-0 top-0 h-1/3 bg-linear-to-b from-black/40 to-transparent z-10" />
+
+      {/* Content Container */}
+      <div className="absolute inset-0 z-20 flex flex-col justify-between pt-32 pb-10 px-6 md:px-12 max-w- mx-auto">
+        {/* Animated Title Text */}
+        <div className="w-full text-center mt-10 md:mt-0">
+          <AnimatePresence mode="wait">
+            <motion.h1
+              key={currentIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="text-4xl md:text-6xl lg:text-7xl font-serif text-white tracking-wide drop-shadow-lg"
+            >
+              {slides[currentIndex].title}
+            </motion.h1>
+          </AnimatePresence>
+        </div>
+
+        {/* Bottom Bar: Progress Indicators & Location */}
+        <div className="relative w-full flex flex-col justify-end items-center h-24">
+          {/* Location Tag (Bottom Right) */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
+              className="absolute right-0 bottom-6 flex items-center gap-2 text-white/90 font-medium tracking-widest text-xs md:text-sm uppercase"
+            >
+              <MdOutlineLocationOn className="text-xl" />
+              <span>{slides[currentIndex].location}</span>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Progress Bars (Centered) */}
+          <div className="flex gap-2 md:gap-3 absolute bottom-6 left-1/2 -translate-x-1/2">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className="h-0.5 w-8 md:w-12 bg-white/30 relative overflow-hidden rounded-full cursor-pointer hover:bg-white/50 transition-colors"
+                aria-label={`Go to slide ${index + 1}`}
+              >
+                {index === currentIndex && (
+                  <motion.div
+                    key={currentIndex} // Forces animation restart on slide change
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{
+                      duration: SLIDE_DURATION / 1000,
+                      ease: "linear",
+                    }}
+                    style={{ originX: 0 }} // Animates from left to right
+                    className="absolute inset-0 bg-white"
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
