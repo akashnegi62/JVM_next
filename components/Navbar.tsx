@@ -179,8 +179,8 @@ export default function Navbar() {
               </motion.div>
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            {/* Desktop Navigation - Changed md:flex to lg:flex */}
+            <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
               <Link
                 href="/"
                 className={navLinkClass}
@@ -264,8 +264,8 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Desktop CTA */}
-            <div className="hidden md:block">
+            {/* Desktop CTA - Changed md:block to lg:block */}
+            <div className="hidden lg:block">
               <Link href="/contact">
                 <motion.button
                   animate={{
@@ -294,8 +294,8 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Mobile Menu Button with Animated Icon */}
-            <div className="md:hidden">
+            {/* Mobile Menu Button with Animated Icon - Changed md:hidden to lg:hidden */}
+            <div className="lg:hidden">
               <motion.button
                 whileTap={{ scale: 0.92 }}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -315,23 +315,23 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            {/* Backdrop with blur - only background is blurred */}
+            {/* Backdrop with blur - Changed md:hidden to lg:hidden */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 md:hidden"
+              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 lg:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
             />
 
-            {/* Top Positioned Popup Menu */}
+            {/* Top Positioned Popup Menu - Changed md:hidden to lg:hidden */}
             <motion.div
               variants={popupVariants}
               initial="closed"
               animate="open"
               exit="closed"
-              className="fixed top-24 left-4 right-4 z-50 md:hidden"
+              className="fixed top-24 left-4 right-4 max-w-md mx-auto z-50 lg:hidden"
             >
               <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
                 {/* Popup Header */}

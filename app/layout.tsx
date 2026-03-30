@@ -16,7 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "JMV Developers",
-  description: "Established in 2008, a renowned brand for all your Real Estate needs.",
+  description:
+    "Established in 2008, a renowned brand for all your Real Estate needs.",
 };
 
 export default function RootLayout({
@@ -38,9 +39,7 @@ export default function RootLayout({
         */}
         <div className="relative z-10 bg-white mb-[100vh] shadow-[0_20px_50px_rgba(0,0,0,0.2)]">
           <Navbar />
-          <main className="min-h-screen">
-            {children}
-          </main>
+          <main className="min-h-screen">{children}</main>
         </div>
 
         {/* The Footer:
