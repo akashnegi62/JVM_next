@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, AnimatePresence } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
 
 // --- Types ---
@@ -83,12 +83,14 @@ const subheadingVariants: Variants = {
 };
 
 export default function News() {
-  const [activeId, setActiveId] = useState<number | null>(null);
+  // Default to the first card being active for a better initial mobile experience
+  const [activeId, setActiveId] = useState<number | null>(1);
 
   return (
     <section className="relative w-full min-h-screen bg-black overflow-hidden font-sans">
       {/* HEADING SECTION */}
-      <div className="relative z-20 px-6 md:px-10 pt-16 pb-8 max-w-7xl mx-auto">
+      {/* Added flex, flex-col, items-center, and text-center to center the content */}
+      <div className="relative z-20 px-6 md:px-10 pt-16 pb-8 max-w-7xl mx-auto flex flex-col items-center text-center">
         <motion.h1
           className="text-4xl md:text-6xl font-serif text-white tracking-tight"
           variants={headingVariants}
@@ -109,20 +111,24 @@ export default function News() {
       </div>
 
       {/* Cards Container */}
-      <div className="flex w-full h-[85vh] px-6 md:px-10">
+      <div className="flex flex-col md:flex-row w-full min-h-[75vh] md:h-[85vh] px-6 md:px-10 pb-12 gap-3 md:gap-0">
         {verticals.map((card) => {
           const isActive = activeId === card.id;
 
           return (
             <motion.div
+              layout
               key={card.id}
-              className="relative flex-1 overflow-hidden cursor-pointer group mr-3 last:mr-0"
-              initial={{ flex: 1 }}
-              animate={{ flex: isActive ? 3 : 1 }}
-              whileHover={{ flex: 3 }}
-              onHoverStart={() => setActiveId(card.id)}
-              onHoverEnd={() => setActiveId(null)}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className={`relative overflow-hidden cursor-pointer group rounded-2xl md:rounded-none transition-all duration-300 ease-in-out
+                ${
+                  isActive
+                    ? "h-95 md:h-full md:flex-[3_3_0%]"
+                    : "h-25 md:h-full md:flex-[1_1_0%]"
+                }
+              `}
+              onMouseEnter={() => setActiveId(card.id)}
+              onClick={() => setActiveId(isActive ? null : card.id)}
+              transition={{ type: "spring", stiffness: 200, damping: 25 }}
             >
               {/* Background Image */}
               <div
@@ -134,7 +140,7 @@ export default function News() {
 
               {/* Overlay Gradient */}
               <div
-                className={`absolute inset-0 bg-linear-to-t ${card.color} opacity-60 group-hover:opacity-40 transition-opacity duration-500`}
+                className={`absolute inset-0 bg-linear-to-t ${card.color} opacity-80 md:opacity-60 md:group-hover:opacity-40 transition-opacity duration-500`}
               />
 
               {/* Content Container */}
@@ -149,24 +155,30 @@ export default function News() {
                 </span>
 
                 {/* Bottom Details */}
-                <div
-                  className={`overflow-hidden transition-all duration-500 ease-in-out
-                  ${isActive ? "max-h-40 opacity-100 translate-y-0" : "max-h-0 opacity-0 translate-y-4"}
-                `}
-                >
-                  <h2 className="text-2xl md:text-3xl text-white font-semibold mb-2 leading-tight">
-                    {card.title}
-                  </h2>
-                  <p className="text-gray-300 text-sm md:text-base mb-4 line-clamp-2">
-                    {card.description}
-                  </p>
+                <AnimatePresence>
+                  {isActive && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.3, delay: 0.1 }}
+                      className="flex flex-col justify-end"
+                    >
+                      <h2 className="text-2xl md:text-3xl text-white font-semibold mb-2 leading-tight">
+                        {card.title}
+                      </h2>
+                      <p className="text-gray-200 text-sm md:text-base mb-4 line-clamp-2 md:line-clamp-none">
+                        {card.description}
+                      </p>
 
-                  {/* Read More Button */}
-                  <button className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white px-6 py-2 rounded-full text-sm font-medium transition-colors duration-300">
-                    READ MORE
-                    <FiArrowRight className="text-xs" />
-                  </button>
-                </div>
+                      {/* Read More Button */}
+                      <button className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white w-fit px-6 py-2 md:py-3 rounded-full text-xs md:text-sm font-medium transition-colors duration-300">
+                        READ MORE
+                        <FiArrowRight className="text-xs md:text-sm" />
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </motion.div>
           );

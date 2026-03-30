@@ -1,253 +1,304 @@
-// app/news/page.tsx
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { FiBookmark, FiEdit3, FiPlay } from "react-icons/fi";
-import { PiNewspaper } from "react-icons/pi";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiChevronDown } from "react-icons/fi";
 
-interface NewsPost {
-  id: number;
-  title: string;
-  author: string;
-  image: string;
-  category: string;
-  isVideo?: boolean;
-  height: string;
-}
-
-const newsPosts: NewsPost[] = [
+// --- Mock Data: Hero Slides ---
+const heroSlides = [
   {
     id: 1,
-    title: "Yamuna e-way to expand to 8 lanes for Jewar airport",
-    author: "Admin",
-    image: "/Images/eway.jpg",
-    category: "Real Estate",
-    height: "h-[500px]",
+    image:
+      "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=2070&auto=format&fit=crop",
+    subtitle: "Media Centre",
+    title:
+      "Discover Paradise: Why Six Senses La Sagesse, Grenada is a One-MICHELIN-Key Luxury Escape",
   },
   {
     id: 2,
+    image:
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2070&auto=format&fit=crop",
+    subtitle: "Awards & Recognition",
     title:
-      "Delhi-Mumbai 12-hour Expressway to come soon:List of expressways that you must know",
-    author: "Admin",
-    image: "/Images/delhi.jpeg",
-    category: "Real Estate",
-    height: "h-72",
+      "The Beach Vista Takes Top Honors at the Global Architecture Awards 2025",
   },
   {
     id: 3,
-    title: "Yamuna expressway to soon have LED lights, crash barriers and more",
-    author: "Admin",
-    image: "/Images/yamuna.jpg",
-    category: "Real Estate",
-    height: "h-72",
-  },
-  {
-    id: 4,
+    image:
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
+    subtitle: "New Launch",
     title:
-      "30 acres along Yamuna Expressway will be allotted to CRPF for a base",
-    author: "Admin",
-    image: "/Images/30acre.jpeg",
-    category: "Real Estate",
-    height: "h-80",
-  },
-  {
-    id: 5,
-    title:
-      "118 More Owners Agree For Land Acquisition For Jewar Airport, Says MLA",
-    author: "Admin",
-    image: "/Images/118.jpg",
-    category: "Real Estate",
-    isVideo: false,
-    height: "h-96",
-  },
-  {
-    id: 6,
-    title: "Jewar International Airport in Greater Noida to be reality soon",
-    author: "Admin",
-    image: "/Images/jewar.jpg",
-    category: "Real Estate",
-    height: "h-64",
+      "Unveiling Island Heights: The New Standard of Luxury Living in the UAE",
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
+// --- Mock Data: Articles ---
+const articles = [
+  {
+    id: 1,
+    image:
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1000&auto=format&fit=crop",
+    category: "Press Media",
+    date: "October 10, 2025",
+    title: "The Beach Vista Recognised at the UAE Realty Awards 2025",
   },
-};
+  {
+    id: 2,
+    image:
+      "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=1000&auto=format&fit=crop",
+    category: "Press Media",
+    date: "October 30, 2024",
+    title:
+      "Discover Paradise: Why Six Senses La Sagesse, Grenada is a One-MICHELIN-Key Luxury Escape",
+  },
+  {
+    id: 3,
+    image:
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1000&auto=format&fit=crop",
+    category: "Press Media",
+    date: "October 17, 2024",
+    source: "Russian Emirates",
+    title: "В Дубае состоялась презентация жилого комплекса Beach Vista",
+  },
+  {
+    id: 4,
+    image:
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000&auto=format&fit=crop",
+    category: "Press Media",
+    date: "October 16, 2024",
+    source: "Arabian Business",
+    title:
+      "Introducing the prestigious launch of The Beach Vista, Al Marjan Island",
+  },
+  // --- 4 New Articles ---
+  {
+    id: 5,
+    image:
+      "https://images.unsplash.com/photo-1613490900233-08fb760f5844?q=80&w=1000&auto=format&fit=crop",
+    category: "Blog",
+    date: "September 22, 2024",
+    title: "Top 5 Reasons to Invest in Al Marjan Island Real Estate",
+  },
+  {
+    id: 6,
+    image:
+      "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=1000&auto=format&fit=crop",
+    category: "Press Media",
+    date: "August 15, 2024",
+    source: "Gulf News",
+    title: "Island Heights Reaches 50% Completion Milestone Ahead of Schedule",
+  },
+  {
+    id: 7,
+    image:
+      "https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=1000&auto=format&fit=crop",
+    category: "Blog",
+    date: "July 05, 2024",
+    title:
+      "Designing the Future: Sustainable Architecture in Coastal Developments",
+  },
+  {
+    id: 8,
+    image:
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1000&auto=format&fit=crop",
+    category: "Press Media",
+    date: "June 12, 2024",
+    source: "Khaleej Times",
+    title: "Record Sales Recorded in Q2 for Luxury Beachfront Villas",
+  },
+];
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.48, 0.15, 0.25, 0.96] as const,
-    },
-  },
-};
+const categories = ["All", "Press Media", "Blog"];
+const SLIDE_DURATION = 5000; // 5 seconds per slide
 
 export default function News() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Scroll progress for hero parallax
-  const { scrollYProgress } = useScroll();
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.15], [1, 1.05]);
+  // Timer logic for the Hero Slider
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentSlide((prev) =>
+        prev === heroSlides.length - 1 ? 0 : prev + 1,
+      );
+    }, SLIDE_DURATION);
+
+    return () => clearTimeout(timer);
+  }, [currentSlide]);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-gray-50">
-      {/* Hero Section - Bottom Left Text */}
-      <section className="relative h-screen flex items-end">
-        <motion.div
-          style={{ scale: heroScale }}
-          className="absolute inset-0 z-0"
-        >
-          <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent z-10" />
-          <Image
-            src="/Images/news.jpg"
-            alt="JMV News"
-            fill
-            priority
-            className="object-cover"
-          />
-        </motion.div>
-
-        {/* Bottom Left Text */}
-        <motion.div
-          style={{ opacity: heroOpacity }}
-          className="relative z-20 px-6 pb-20 md:pb-32 max-w-7xl mx-auto w-full"
-        >
+    <main className="w-full min-h-screen bg-white text-slate-900">
+      {/* 1. Hero Section */}
+      <section className="relative w-full h-screen flex items-end overflow-hidden">
+        {/* Animated Background Images */}
+        <AnimatePresence initial={false}>
           <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-left"
+            key={currentSlide}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1, ease: "easeInOut" }}
+            className="absolute inset-0 z-0"
           >
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-white/80 text-sm md:text-base uppercase tracking-[0.4em] ml-8 mb-4"
-            >
-              Stay Updated
-            </motion.p>
-            <motion.h1 className="text-[15vw] md:text-[10vw] lg:text-[8vw] font-bold text-white tracking-tighter leading-none">
-              NEWS {""} & {""} FEEDS
-            </motion.h1>
+            <Image
+              src={heroSlides[currentSlide].image}
+              alt={heroSlides[currentSlide].title}
+              fill
+              priority
+              className="object-cover"
+            />
           </motion.div>
-        </motion.div>
+        </AnimatePresence>
+
+        {/* linear Overlay for Text Readability */}
+        <div className="absolute inset-0 z-10 bg-linear-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 z-10 bg-linear-to-r from-black/60 via-transparent to-transparent pointer-events-none" />
+
+        {/* Hero Content */}
+        <div className="relative z-20 w-full max-w-480 mx-auto px-6 md:px-12 lg:px-20 pb-16 md:pb-24 flex justify-between items-end pointer-events-none">
+          {/* Animated Text Content */}
+          <div className="max-w-3xl pointer-events-auto">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
+                <p className="text-white/80 tracking-widest text-xs md:text-sm uppercase mb-4">
+                  {heroSlides[currentSlide].subtitle}
+                </p>
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif text-white leading-tight mb-8 drop-shadow-lg">
+                  {heroSlides[currentSlide].title}
+                </h1>
+                <button className="px-8 py-3 rounded-full border border-white text-white text-sm hover:bg-white hover:text-black transition-colors duration-300">
+                  Read More
+                </button>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Working Slider Controls */}
+          <div className="hidden md:flex items-center gap-3 pb-4 pointer-events-auto">
+            {heroSlides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className="relative w-16 h-0.5 bg-white/30 overflow-hidden cursor-pointer hover:bg-white/50 transition-colors"
+                aria-label={`Go to slide ${index + 1}`}
+              >
+                {index === currentSlide && (
+                  <motion.div
+                    key={currentSlide} // Forces re-render of animation
+                    initial={{ width: "0%" }}
+                    animate={{ width: "100%" }}
+                    transition={{
+                      duration: SLIDE_DURATION / 1000,
+                      ease: "linear",
+                    }}
+                    className="absolute top-0 left-0 h-full bg-white"
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
       </section>
 
-      {/* Recent Posts Section - Career Page Style */}
-      <section className="py-24 md:py-32 bg-gray-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6">
-          {/* Large Heading like Career Page */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-16"
-          >
-            <h2 className="text-6xl md:text-7xl lg:text-8xl font-bold text-gray-200 leading-none tracking-tighter select-none flex items-center gap-4">
-              <PiNewspaper className="text-5xl md:text-6xl" /> RECENT POSTS
-            </h2>
-          </motion.div>
+      {/* 2. Articles Grid Section */}
+      <section className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-8 py-20">
+        {/* Header Title & Description */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+          <h2 className="text-5xl md:text-6xl font-serif text-slate-800">
+            All Articles
+          </h2>
+          <p className="text-sm text-gray-500 max-w-md md:text-right leading-relaxed">
+            Discover all the latest updates, insights, and valuable resources
+            right here. This hub provides blog posts, press releases, and
+            detailed guides to keep you up to date on our projects.
+          </p>
+        </div>
 
-          {/* Masonry Grid - Career Page Card Style */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6"
-          >
-            {newsPosts.map((post) => (
-              <motion.div
-                key={post.id}
-                variants={itemVariants}
-                whileHover={{ y: -4 }}
-                className="break-inside-avoid mb-6 group bg-gray-50 rounded-xl hover:bg-gray-100 transition-all duration-300 border border-gray-300 cursor-pointer"
+        <hr className="border-gray-200 mb-8" />
+
+        {/* Filters and Sorting Bar */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-12">
+          {/* Left: Category Buttons */}
+          <div className="flex items-center gap-2 md:gap-4 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto scrollbar-hide">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-6 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap border ${
+                  activeCategory === cat
+                    ? "bg-[#1a2327] text-white border-[#1a2327]"
+                    : "bg-transparent text-gray-700 border-gray-300 hover:border-gray-500"
+                }`}
               >
-                {/* Image Container */}
-                <div
-                  className={`relative ${post.height} w-full overflow-hidden rounded-t-xl`}
-                >
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
+                {cat}
+              </button>
+            ))}
+          </div>
 
-                  {/* Video Overlay */}
-                  {post.isVideo && (
-                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mb-3 mx-auto shadow-lg">
-                          <FiPlay className="w-8 h-8 text-white ml-1" />
-                        </div>
-                        <p className="text-white font-semibold text-sm bg-black/60 px-4 py-2 rounded-full inline-block">
-                          Watch on YouTube
-                        </p>
-                      </div>
-                    </div>
+          {/* Right: Sort Dropdown */}
+          <button className="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 text-sm text-gray-700 hover:border-gray-500 transition-colors">
+            <span className="text-gray-500">Sort by |</span>
+            <span className="font-medium">Newest</span>
+            <FiChevronDown className="ml-1" />
+          </button>
+        </div>
+
+        {/* Grid Container */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+          {articles
+            // Filter logic applied to render active categories
+            .filter(
+              (article) =>
+                activeCategory === "All" || article.category === activeCategory,
+            )
+            .map((article, index) => (
+              <motion.div
+                key={article.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: (index % 4) * 0.1 }}
+                className="group cursor-pointer flex flex-col"
+              >
+                {/* Image Container with Hover Zoom */}
+                <div className="relative w-full aspect-4/3 mb-4 overflow-hidden bg-gray-100">
+                  <Image
+                    src={article.image}
+                    alt={article.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  />
+                </div>
+
+                {/* Metadata */}
+                <div className="flex items-center flex-wrap gap-1.5 text-[11px] text-gray-500 mb-3 tracking-wide">
+                  <span className="uppercase">{article.category}</span>
+                  <span>|</span>
+                  <span>{article.date}</span>
+                  {article.source && (
+                    <>
+                      <span>|</span>
+                      <span className="text-gray-400">{article.source}</span>
+                    </>
                   )}
                 </div>
 
-                {/* Content - Career Page Style */}
-                <div className="p-5">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-gray-900 text-lg leading-tight line-clamp-2 mb-2">
-                        {post.title}
-                      </h3>
-
-                      {/* Tags - Like Career Page Skills */}
-                      <div className="flex items-center gap-4 pt-3 border-t border-gray-200">
-                        <div className="flex items-center gap-2 text-sm text-gray-600">
-                          <FiBookmark className="w-4 h-4 text-gray-900" />
-                          <span>{post.category}</span>
-                        </div>
-                        <div className="w-px h-4 bg-gray-300" />
-                        <div className="flex items-center gap-2 text-sm text-gray-600">
-                          <FiEdit3 className="w-4 h-4 text-gray-900" />
-                          <span>{post.author}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {/* Article Title */}
+                <h3 className="text-lg md:text-xl font-serif text-slate-800 leading-snug group-hover:text-teal-700 transition-colors">
+                  {article.title}
+                </h3>
               </motion.div>
             ))}
-          </motion.div>
-
-          {/* Load More Button - Career Page CTA Style */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="text-center mt-16"
-          >
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-10 py-4 bg-gray-900 text-white text-sm uppercase tracking-wider hover:bg-gray-800 transition-colors inline-flex items-center gap-2"
-            >
-              Load More Posts <FiBookmark />
-            </motion.button>
-          </motion.div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

@@ -89,9 +89,9 @@ export default function Hero() {
       <div className="absolute inset-x-0 top-0 h-1/3 bg-linear-to-b from-black/40 to-transparent z-10" />
 
       {/* Content Container */}
-      <div className="absolute inset-0 z-20 flex flex-col justify-between pt-32 pb-10 px-6 md:px-12 max-w- mx-auto">
-        {/* Animated Title Text */}
-        <div className="w-full text-center mt-10 md:mt-0">
+      <div className="absolute inset-0 z-20 flex flex-col justify-between pt-32 pb-10 px-6 md:px-12 mx-auto">
+        {/* Animated Title Text & Mobile Subtitle */}
+        <div className="w-full text-center mt-10 md:mt-0 flex flex-col items-center">
           <AnimatePresence mode="wait">
             <motion.h1
               key={currentIndex}
@@ -104,19 +104,36 @@ export default function Hero() {
               {slides[currentIndex].title}
             </motion.h1>
           </AnimatePresence>
-        </div>
 
-        {/* Bottom Bar: Progress Indicators & Location */}
-        <div className="relative w-full flex flex-col justify-end items-center h-24">
-          {/* Location Tag (Bottom Right) */}
+          {/* Location Tag: Shown ONLY on mobile/tablet directly under the heading */}
           <AnimatePresence mode="wait">
             <motion.div
-              key={currentIndex}
+              key={`mobile-${currentIndex}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="mt-6 flex lg:hidden items-center gap-2 text-white/90 font-medium tracking-widest text-xs uppercase"
+            >
+              <GoDotFill className="text-lg" />
+              <span className="border-b border-white/30 pb-1">
+                {slides[currentIndex].location}
+              </span>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Bottom Bar: Progress Indicators & Desktop Location */}
+        <div className="relative w-full flex flex-col justify-end items-center h-24">
+          {/* Location Tag: Shown ONLY on desktop (Bottom Right) */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`desktop-${currentIndex}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.8 }}
-              className="absolute right-0 bottom-6 flex items-center gap-2 text-white/90 font-medium tracking-widest text-sm md:text-sm uppercase"
+              className="hidden md:hidden lg:flex absolute right-0 bottom-6 items-center gap-2 text-white/90 font-medium tracking-widest text-sm uppercase"
             >
               <GoDotFill className="text-xl" />
               <span>{slides[currentIndex].location}</span>
@@ -134,14 +151,14 @@ export default function Hero() {
               >
                 {index === currentIndex && (
                   <motion.div
-                    key={currentIndex} // Forces animation restart on slide change
+                    key={currentIndex}
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     transition={{
                       duration: SLIDE_DURATION / 1000,
                       ease: "linear",
                     }}
-                    style={{ originX: 0 }} // Animates from left to right
+                    style={{ originX: 0 }}
                     className="absolute inset-0 bg-white"
                   />
                 )}

@@ -29,7 +29,7 @@ const properties = [
   },
 ];
 
-// 2. Sub-component to detect when an image scrolls into view
+// 2. Sub-component to detect when an image scrolls into view (Desktop Only)
 const ImageBlock = ({
   src,
   alt,
@@ -79,10 +79,10 @@ export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="relative w-full bg-white text-black">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row px-6 md:px-12 relative">
-        {/* Left Side: Scrolling Images */}
-        <div className="w-full md:w-1/2 pt-[10vh] pb-[30vh]">
+    <section className="relative w-full bg-white text-black min-h-screen">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row px-6 md:px-12 relative py-12 md:py-0">
+        {/* Left Side: Scrolling Images (HIDDEN ON MOBILE, VISIBLE ON DESKTOP) */}
+        <div className="hidden md:block w-full md:w-1/2 pt-[10vh] pb-[30vh]">
           {properties.map((property, index) => (
             <ImageBlock
               key={property.id}
@@ -94,26 +94,22 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Right Side: Sticky Text */}
+        {/* Right Side: Accordion on Mobile / Sticky Text on Desktop */}
         <div className="w-full md:w-1/2 relative">
-          <div className="sticky top-0 h-screen flex flex-col justify-center pl-0 md:pl-20 py-20">
-            <p className="text-2xl md:text-3xl font-serif font-bold text-black tracking-widest uppercase mb-12">
+          <div className="md:sticky md:top-0 md:h-screen flex flex-col justify-center pl-0 md:pl-20 md:py-20">
+            <p className="text-xl md:text-3xl font-serif font-bold text-black tracking-widest uppercase mb-10 md:mb-12">
               Our Projects
             </p>
 
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-8 md:gap-6">
               {properties.map((property, index) => {
                 const isActive = index === activeIndex;
 
                 return (
                   <div key={property.id} className="flex flex-col">
-                    {/* Title */}
+                    {/* Title (Acts as accordion button on mobile) */}
                     <button
-                      onClick={() => {
-                        // Optional: Allow clicking the title to scroll the window to the image
-                        // In a real app, you'd use a ref to the image block to scroll into view.
-                        setActiveIndex(index);
-                      }}
+                      onClick={() => setActiveIndex(index)}
                       className={`text-left text-3xl md:text-5xl font-serif transition-colors duration-500 ${
                         isActive ? "text-slate-800" : "text-slate-300"
                       }`}
@@ -121,7 +117,7 @@ export default function Projects() {
                       {property.title}
                     </button>
 
-                    {/* Expandable Description */}
+                    {/* Expandable Description & Mobile Image */}
                     <AnimatePresence>
                       {isActive && (
                         <motion.div
@@ -129,7 +125,7 @@ export default function Projects() {
                           animate={{
                             height: "auto",
                             opacity: 1,
-                            marginTop: 24,
+                            marginTop: 20,
                           }}
                           exit={{ height: 0, opacity: 0, marginTop: 0 }}
                           transition={{ duration: 0.4, ease: "easeInOut" }}
@@ -138,9 +134,24 @@ export default function Projects() {
                           <p className="text-gray-600 leading-relaxed max-w-md">
                             {property.description}
                           </p>
-                          <button className="mt-6 text-sm font-medium border-b border-gray-400 pb-1 hover:border-gray-800 transition-colors">
+                          <button className="mt-6 text-sm font-medium border-b border-gray-400 pb-1 hover:border-gray-800 transition-colors inline-block mb-2">
                             Learn More
                           </button>
+
+                          {/* MOBILE IMAGE: Shown only on mobile devices inside the accordion */}
+                          <div className="md:hidden relative w-full aspect-4/3 mt-6 bg-gray-100 overflow-hidden">
+                            <Image
+                              src={property.image}
+                              alt={property.title}
+                              fill
+                              className="object-cover"
+                              sizes="(max-width: 768px) 100vw, 50vw"
+                            />
+                            {/* Mobile Logo Box Overlay */}
+                            <div className="absolute top-0 right-0 w-24 h-24 bg-slate-500/80 backdrop-blur-sm flex items-center justify-center text-white text-[10px] font-bold uppercase tracking-widest text-center p-2">
+                              {property.title}
+                            </div>
+                          </div>
                         </motion.div>
                       )}
                     </AnimatePresence>

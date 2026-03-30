@@ -1,352 +1,211 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import {
-  FaArrowRight,
-  FaBriefcase,
-  FaUsers,
-  FaLightbulb,
-  FaChartLine,
-} from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
+import { PiBuildingsLight, PiTreePalmLight } from "react-icons/pi";
 
-// Animation variants
-const fadeInUp = {
-  initial: { opacity: 0, y: 40 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-};
-
-const staggerContainer = {
-  animate: {
-    transition: { staggerChildren: 0.12 },
+// --- Mock Data: Career Hero Slides ---
+const heroSlides = [
+  {
+    id: 1,
+    image:
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop",
+    alt: "Corporate Office Environment",
   },
-};
+  {
+    id: 2,
+    image:
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop",
+    alt: "Team Collaboration and Meeting",
+  },
+  {
+    id: 3,
+    image:
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2073&auto=format&fit=crop",
+    alt: "Luxury Real Estate Property",
+  },
+];
 
-const imageReveal = {
-  initial: { scale: 1.1, opacity: 0 },
-  animate: { scale: 1, opacity: 1 },
-  transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
-};
+const SLIDE_DURATION = 5000;
 
-export default function Careers() {
-  const containerRef = useRef<HTMLDivElement>(null);
+export default function Career() {
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Scroll progress for hero parallax
-  const { scrollYProgress } = useScroll();
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.15], [1, 1.05]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentSlide((prev) =>
+        prev === heroSlides.length - 1 ? 0 : prev + 1,
+      );
+    }, SLIDE_DURATION);
+
+    return () => clearTimeout(timer);
+  }, [currentSlide]);
 
   return (
-    <div
-      ref={containerRef}
-      className="min-h-screen bg-white overflow-x-hidden font-sans text-gray-900"
-    >
-      {/*  HERO SECTION  */}
-      <section className="relative h-screen flex items-end">
-        <motion.div
-          style={{ scale: heroScale }}
-          className="absolute inset-0 z-0"
-        >
-          <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/20 to-transparent z-10" />
-          <Image
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80"
-            alt="JMV Careers"
-            fill
-            priority
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/60 to-black/40" />
-        </motion.div>
-
-        {/* Bottom Left Text */}
-        <motion.div
-          style={{ opacity: heroOpacity }}
-          className="relative z-20 px-6 pb-20 md:pb-32 max-w-7xl mx-auto w-full"
-        >
+    <main className="w-full min-h-screen bg-white text-slate-900 font-sans">
+      {/* 1. Hero Section */}
+      <section className="relative w-full h-screen overflow-hidden">
+        {/* Animated Background Images */}
+        <AnimatePresence initial={false}>
           <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-left"
+            key={currentSlide}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1, ease: "easeInOut" }}
+            className="absolute inset-0 z-0"
           >
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-white/80 text-sm md:text-base uppercase tracking-[0.4em] ml-8 mb-4"
-            >
-              Join Our Team
-            </motion.p>
-            <motion.h1 className="text-[15vw] md:text-[10vw] lg:text-[8vw] font-bold text-white tracking-tighter leading-none">
-              CAREERS
-            </motion.h1>
+            <Image
+              src={heroSlides[currentSlide].image}
+              alt={heroSlides[currentSlide].alt}
+              fill
+              priority
+              className="object-cover"
+            />
           </motion.div>
-        </motion.div>
-      </section>
+        </AnimatePresence>
 
-      {/*  INTRO SECTION  */}
-      <section className="py-24 md:py-32 bg-white">
-        <div className="max-w-5xl mx-auto px-6">
-          <motion.div
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: "-100px" }}
-            className="space-y-8"
-          >
-            <motion.h1
-              variants={fadeInUp}
-              className="text-2xl md:text-3xl lg:text-4xl text-gray-900 leading-relaxed font-light"
-            >
-              Build your career with JMV Developers. We&apos;re looking for
-              passionate, dedicated professionals who share our vision of
-              creating India&apos;s most valuable real estate company. Join us
-              in shaping the future of living.
-            </motion.h1>
-          </motion.div>
-        </div>
-      </section>
+        {/* Dark Overlays */}
+        <div className="absolute inset-0 z-10 bg-black/30 pointer-events-none" />
+        <div className="absolute inset-0 z-10 bg-linear-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 z-10 bg-linear-to-r from-black/60 via-transparent to-transparent pointer-events-none" />
 
-      {/*  JOBS SECTION  */}
-      <section className="relative py-24 md:py-32 bg-gray-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Left: Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7 }}
-              className="order-2 md:order-1"
-            >
-              <motion.h2
+        {/* Hero Content & Controls */}
+        <div className="absolute bottom-12 md:bottom-30 left-0 w-full z-20 pointer-events-none">
+          <div className="w-full px-6 md:px-12 lg:px-20 flex flex-col md:flex-row md:items-end justify-between gap-8 pointer-events-auto">
+            {/* Left: Text Content */}
+            <div className="flex flex-col items-start max-w-3xl">
+              <motion.p
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="text-6xl md:text-7xl lg:text-8xl font-bold text-gray-200 leading-none tracking-tighter mb-8 select-none flex items-center gap-4"
+                className="text-white/80 tracking-[0.2em] text-sm md:text-lg lg:text-xl uppercase mb-4 font-light"
               >
-                <FaBriefcase className="text-5xl md:text-6xl" /> JOBS
-              </motion.h2>
-
-              <div className="space-y-4">
-                {[
-                  {
-                    title: "Real Estate Clerk",
-                    desc: "Manage documentation, client records, and administrative support for our sales team.",
-                  },
-                  {
-                    title: "Real Estate Manager",
-                    desc: "Lead property development projects, coordinate teams, and ensure timely delivery of premium projects.",
-                  },
-                  {
-                    title: "Sales Assistant",
-                    desc: "Support client interactions, property presentations, and drive sales growth across residential and commercial segments.",
-                  },
-                ].map((job, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.15 }}
-                    className="group p-6 bg-white rounded-2xl border border-gray-100"
-                  >
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors">
-                          {job.title}
-                        </h3>
-                        <p className="text-gray-600 leading-relaxed">
-                          {job.desc}
-                        </p>
-                      </div>
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="shrink-0 w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center hover:bg-gray-700 transition-colors"
-                      >
-                        <FaArrowRight className="text-sm" />
-                      </motion.button>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Right: Image */}
-            <motion.div
-              initial={{ opacity: 0, x: 60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="order-1 md:order-2 relative"
-            >
-              <motion.div
-                variants={imageReveal}
-                initial="initial"
-                whileInView="animate"
-                viewport={{ once: true }}
-                className="relative h-100 md:h-150 w-full overflow-hidden rounded-2xl"
+                Careers at JMV Developers
+              </motion.p>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-4xl md:text-6xl lg:text-7xl font-serif text-white leading-tight drop-shadow-md text-left"
               >
-                <Image
-                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80"
-                  alt="Team Collaboration"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
-              </motion.div>
-            </motion.div>
+                Build Your Future
+              </motion.h1>
+            </div>
+
+            {/* Right: Slider Controls */}
+            <div className="hidden md:flex items-center gap-3 pb-2">
+              {heroSlides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className="relative w-16 h-0.5 bg-white/30 overflow-hidden cursor-pointer hover:bg-white/50 transition-colors"
+                  aria-label={`Go to slide ${index + 1}`}
+                >
+                  {index === currentSlide && (
+                    <motion.div
+                      key={currentSlide}
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{
+                        duration: SLIDE_DURATION / 1000,
+                        ease: "linear",
+                      }}
+                      className="absolute top-0 left-0 h-full bg-white"
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SKILLS SECTION */}
-      <section className="relative py-24 md:py-32 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Left: Image */}
-            <motion.div
-              initial={{ opacity: 0, x: -60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7 }}
-              className="relative"
-            >
-              <motion.div
-                variants={imageReveal}
-                initial="initial"
-                whileInView="animate"
-                viewport={{ once: true }}
-                className="relative h-100 md:h-150 w-full overflow-hidden rounded-2xl"
-              >
-                <Image
-                  src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80"
-                  alt="Professional Skills"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
-              </motion.div>
-            </motion.div>
+      {/* 2. Split Content Section - Perfectly matches the Hero's max-w-[90rem] constraint */}
+      <section className="w-full max-w-360 mx-auto px-6 md:px-12 lg:px-20 py-20 md:py-32 flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+        {/* Left Column */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          className="w-full lg:w-1/2 flex flex-col items-start"
+        >
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-serif text-[#2a3035] leading-[1.1] mb-6 tracking-tight">
+            Unlock Exclusive
+            <br /> Job Opportunities
+          </h2>
+          <p className="text-gray-500 leading-relaxed mb-8 font-light text-[15px] md:text-lg lg:text-xl pr-4">
+            Join a network of leading real estate brokers and investment
+            advisors representing award-winning projects across the UAE and the
+            Caribbean. JMV Developers has built a reputation for delivering
+            high-quality luxury projects and trusted CBI pathways, giving your
+            clients opportunities that stand out in the global market.
+          </p>
 
-            {/* Right: Content */}
-            <motion.div
-              initial={{ opacity: 0, x: 60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+          <div className="w-full mt-2">
+            <p className="text-[#2a3035] font-medium text-lg mb-1">
+              Post your resume to us at
+            </p>
+            <a
+              href="mailto:info@jmvdevelopers.com"
+              className="text-teal-700 hover:text-teal-900 transition-colors underline underline-offset-4 decoration-teal-700/30 hover:decoration-teal-900 font-semibold text-lg"
             >
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="text-6xl md:text-7xl lg:text-8xl font-bold text-gray-100 leading-none tracking-tighter mb-8 select-none flex items-center gap-4"
-              >
-                <FaUsers className="text-5xl md:text-6xl" /> SKILLS
-              </motion.h2>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {[
-                  {
-                    icon: FaChartLine,
-                    label: "High Performance",
-                    desc: "Drive results with excellence",
-                  },
-                  {
-                    icon: FaLightbulb,
-                    label: "Passionate",
-                    desc: "Bring energy and enthusiasm",
-                  },
-                  {
-                    icon: FaUsers,
-                    label: "Team Work",
-                    desc: "Collaborate and grow together",
-                  },
-                  {
-                    icon: FaBriefcase,
-                    label: "Dedication",
-                    desc: "Commit to long-term success",
-                  },
-                  {
-                    icon: FaChartLine,
-                    label: "Energetic",
-                    desc: "Stay motivated and proactive",
-                  },
-                  {
-                    icon: FaLightbulb,
-                    label: "Problem Solving",
-                    desc: "Find creative solutions",
-                  },
-                  {
-                    icon: FaBriefcase,
-                    label: "Initiative",
-                    desc: "Take ownership and lead",
-                  },
-                ].map((skill, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="p-5 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group"
-                  >
-                    <div className="flex items-start gap-3">
-                      <skill.icon className="text-gray-900 text-xl mt-1 group-hover:scale-110 transition-transform" />
-                      <div>
-                        <h4 className="font-semibold text-gray-900">
-                          {skill.label}
-                        </h4>
-                        <p className="text-sm text-gray-600">{skill.desc}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+              info@jmvdevelopers.com
+            </a>
           </div>
-        </div>
-      </section>
+        </motion.div>
 
-      {/* CTA SECTION */}
-      <section className="py-32 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <motion.div
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-          >
-            <motion.h2
-              variants={fadeInUp}
-              className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
-            >
-              Ready to Make an Impact?
-            </motion.h2>
-            <motion.p
-              variants={fadeInUp}
-              className="text-xl text-black leading-relaxed font-light mb-10"
-            >
-              If you &apso; re passionate about real estate and ready to grow
-              with India &apso; s most valuable real estate company, we &apso; d
-              love to hear from you.
-            </motion.p>
-            <motion.button
-              variants={fadeInUp}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-10 py-4 bg-gray-900 text-white text-sm uppercase tracking-wider hover:bg-gray-800 transition-colors inline-flex items-center gap-2"
-            >
-              Apply Now <FaArrowRight />
-            </motion.button>
-          </motion.div>
-        </div>
+        {/* Right Column */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="w-full lg:w-1/2 relative flex flex-col sm:flex-row gap-12 sm:gap-0 mt-4 lg:mt-0"
+        >
+          {/* Vertical Divider Line with Diamond */}
+          <div className="hidden sm:block absolute left-1/2 top-10 bottom-4 w-px bg-gray-200 -translate-x-1/2">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 border border-gray-300 bg-white rotate-45" />
+          </div>
+
+          {/* Column 1: UAE Projects */}
+          <div className="w-full sm:w-1/2 sm:pr-12 flex flex-col">
+            <h3 className="text-[14px] font-semibold text-teal-800 mb-8">
+              Positions
+            </h3>
+
+            <div className="text-[#5b7380] mb-6">
+              <PiBuildingsLight size={85} strokeWidth={2} />
+            </div>
+
+            <h4 className="text-[13px] uppercase tracking-wider font-bold text-slate-800 mb-4">
+              UAE PROJECTS AGENT
+            </h4>
+            <p className="text-gray-500 font-light text-[15px] leading-relaxed">
+              Represent our UAE projects on Al Marjan Island and access
+              up-to-date inventories, marketing materials, and dedicated sales
+              support.
+            </p>
+          </div>
+
+          {/* Column 2: CBI Caribbean */}
+          <div className="w-full sm:w-1/2 sm:pl-12 flex flex-col sm:mt-13">
+            <div className="text-[#5b7380] mb-6">
+              <PiTreePalmLight size={85} strokeWidth={2} />
+            </div>
+
+            <h4 className="text-[13px] uppercase tracking-wider font-bold text-slate-800 mb-4">
+              CBI CARIBBEAN SERVICE PARTNER
+            </h4>
+            <p className="text-gray-500 font-light text-[15px] leading-relaxed">
+              Offer clients government-approved CBI opportunities backed by our
+              established Caribbean developments.
+            </p>
+          </div>
+        </motion.div>
       </section>
-    </div>
+    </main>
   );
 }

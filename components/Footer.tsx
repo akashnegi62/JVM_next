@@ -1,210 +1,126 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
+// Importing React Icons (Font Awesome set)
 import {
-  FiMapPin,
-  FiMail,
-  FiPhone,
-  FiFacebook,
-  FiTwitter,
-  FiInstagram,
-  FiLinkedin,
-  FiChevronRight,
-} from "react-icons/fi";
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaTwitter,
+  FaMapMarkerAlt,
+  FaEnvelope,
+  FaPhoneAlt,
+} from "react-icons/fa";
 
-const footerVariants = {
-  hidden: { opacity: 0, y: 100 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.48, 0.15, 0.25, 0.96] as const,
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.48, 0.15, 0.25, 0.96] as const,
-    },
-  },
-};
-
-const socialIcons = [
-  { icon: FiFacebook, href: "#", color: "hover:text-blue-600" },
-  { icon: FiTwitter, href: "#", color: "hover:text-sky-500" },
-  { icon: FiInstagram, href: "#", color: "hover:text-pink-600" },
-  { icon: FiLinkedin, href: "#", color: "hover:text-blue-700" },
-];
-
-const quickLinks = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Locations", href: "#locations" },
-  { name: "Broucher", href: "#broucher" },
-  { name: "Application Form", href: "#application" },
-];
-
-const informations = [
-  { name: "Contact", href: "#contact" },
-  { name: "Careers", href: "#careers" },
-];
-
-export default function Footer() {
+const Footer = () => {
   return (
     <motion.footer
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={footerVariants}
-      className="bg-white border-t border-gray-200"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: false }}
+      transition={{ duration: 0.8 }}
+      className="fixed bottom-0 left-0 w-full h-screen -z-10 flex flex-col justify-end overflow-hidden"
+      style={{
+        backgroundImage: 'url("/images/hero/hero4.jpg")',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {/* About Us Section */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-xl font-bold text-gray-800 mb-2 uppercase tracking-wide">
-              About Us
-            </h3>
-            <div className="w-12 h-0.5 bg-linear-to-r from-orange-500 to-red-500 mb-6" />
+      {/* Dark Overlay for better text legibility */}
+      <div className="absolute inset-0 bg-slate-950/75" />
 
-            <h4 className="text-2xl font-bold text-gray-900 mb-4">
+      {/* Footer Content */}
+      <div className="relative z-10 container mx-auto px-6 pb-16 grid grid-cols-1 md:grid-cols-3 gap-12 text-white">
+        {/* About Us */}
+        <div className="space-y-6 md:space-y-8">
+          <h2 className="text-4xl md:text-5xl font-bold pb-3 inline-block">
+            About Us
+          </h2>
+          <div className="space-y-4">
+            <h3 className="text-2xl md:text-3xl font-semibold text-white">
               JMV Developers
-            </h4>
-
-            <p className="text-gray-600 leading-relaxed text-sm">
-              JMV Developers established in 2008 is a renowned brand to cater to
-              all your Real Estate needs. We assure you the full satisfaction as
-              regards to the quality, commitment, service and deal in a wide
-              network of properties.
-            </p>
-          </motion.div>
-
-          {/* Contacts Section */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-xl font-bold text-gray-800 mb-2 uppercase tracking-wide">
-              Contacts
             </h3>
-            <div className="w-12 h-0.5 bg-linear-to-r from-orange-500 to-red-500 mb-6" />
-
-            <div className="space-y-4">
-              {/* Address */}
-              <div className="flex items-start space-x-3">
-                <FiMapPin className="w-5 h-5 text-orange-600 mt-1 shrink-0" />
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  Office No: 7, Ist floor, Mahalaxmi Square, Indirapuram
-                  <br />
-                  Abhay Khand-2, Ghaziabad -201010 (Uttar Pradesh)
-                </p>
-              </div>
-
-              {/* Email */}
-              <div className="flex items-center space-x-3">
-                <FiMail className="w-5 h-5 text-orange-600 shrink-0" />
-                <a
-                  href="mailto:info@jmvdevelopers.com"
-                  className="text-gray-600 text-sm hover:text-orange-600 transition-colors"
-                >
-                  info@jmvdevelopers.com
-                </a>
-              </div>
-
-              {/* Phone */}
-              <div className="flex items-center space-x-3">
-                <FiPhone className="w-5 h-5 text-orange-600 shrink-0" />
-                <a
-                  href="tel:+918383041206"
-                  className="text-gray-600 text-sm hover:text-orange-600 transition-colors"
-                >
-                  +91-8383041206
-                </a>
-              </div>
-            </div>
-
-            {/* Social Icons */}
-            <div className="flex items-center space-x-4 mt-6 pt-6">
-              {socialIcons.map((social, index) => (
+            <p className="text-gray-300 leading-relaxed text-base md:text-lg">
+              Established in 2008, JMV Developers is a renowned brand catering
+              to all your Real Estate needs. We assure you full satisfaction
+              regarding quality, commitment, and service.
+            </p>
+          </div>
+          <div className="flex gap-6 pt-3">
+            {[FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter].map(
+              (Icon, index) => (
                 <motion.a
                   key={index}
-                  href={social.href}
-                  whileHover={{ scale: 1.2, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 ${social.color} transition-colors`}
+                  href="#"
+                  whileHover={{ y: -5 }}
+                  className="text-2xl md:text-3xl transition-colors cursor-pointer"
                 >
-                  <social.icon className="w-5 h-5" />
+                  <Icon />
                 </motion.a>
-              ))}
+              ),
+            )}
+          </div>
+        </div>
+
+        {/* Information Links */}
+        <div className="space-y-6 md:space-y-8">
+          <h2 className="text-4xl md:text-5xl font-bold pb-3 inline-block">
+            Information
+          </h2>
+          <ul className="space-y-4 text-gray-300 font-medium text-base md:text-lg">
+            {[
+              "Home",
+              "About",
+              "Locations",
+              "Brochure",
+              "Application Form",
+              "Careers",
+            ].map((item) => (
+              <li key={item}>
+                <motion.a
+                  href="#"
+                  whileHover={{ x: 8, color: "#fff" }}
+                  className="hover:text-white transition-colors block"
+                >
+                  {item}
+                </motion.a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Contact Details */}
+        <div className="space-y-6 md:space-y-8">
+          <h2 className="text-4xl md:text-5xl font-bold pb-3 inline-block">
+            Contact
+          </h2>
+          <div className="space-y-6 text-gray-300">
+            <div className="flex items-start gap-4">
+              <FaMapMarkerAlt className="mt-1.5 shrink-0 text-2xl" />
+              <p className="text-base md:text-lg">
+                Office No: 7, 1st floor, Mahalaxmi Square, Indirapuram, Abhay
+                Khand-2, Ghaziabad - 201010 (UP)
+              </p>
             </div>
-          </motion.div>
-
-          {/* Informations Section */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-xl font-bold text-gray-800 mb-2 uppercase tracking-wide">
-              Informations
-            </h3>
-            <div className="w-12 h-0.5 bg-linear-to-r from-orange-500 to-red-500 mb-6" />
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-3">
-                {quickLinks.map((link, index) => (
-                  <motion.a
-                    key={index}
-                    href={link.href}
-                    whileHover={{ x: 5 }}
-                    className="flex items-center text-gray-600 text-sm hover:text-orange-600 transition-colors group"
-                  >
-                    <FiChevronRight className="w-4 h-4 mr-2 text-gray-400 group-hover:text-orange-600 transition-colors" />
-                    {link.name}
-                  </motion.a>
-                ))}
-              </div>
-
-              <div className="space-y-3">
-                {informations.map((link, index) => (
-                  <motion.a
-                    key={index}
-                    href={link.href}
-                    whileHover={{ x: 5 }}
-                    className="flex items-center text-gray-600 text-sm hover:text-orange-600 transition-colors group"
-                  >
-                    <FiChevronRight className="w-4 h-4 mr-2 text-gray-400 group-hover:text-orange-600 transition-colors" />
-                    {link.name}
-                  </motion.a>
-                ))}
-              </div>
+            <div className="flex items-center gap-4">
+              <FaEnvelope className="shrink-0 text-2xl" />
+              <p className="text-base md:text-lg">info@jmvdevelopers.com</p>
             </div>
-          </motion.div>
+            <div className="flex items-center gap-4">
+              <FaPhoneAlt className="shrink-0 text-2xl" />
+              <p className="text-base md:text-lg">+91-8383041206</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Copyright Section */}
-      <motion.div
-        variants={itemVariants}
-        className="border-t border-gray-200 bg-gray-50"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-center text-gray-600 text-sm">
-            JMV Developers | All Right Reserved | Developed by{" "}
-            <a
-              href="https://webviron.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-orange-600 hover:text-orange-700 font-semibold transition-colors"
-            >
-              Peltown
-            </a>
-          </p>
-        </div>
-      </motion.div>
+      {/* Bottom Copyright */}
+      <div className="relative z-10 border-t border-white/10 py-8 text-center text-gray-400 text-base md:text-lg tracking-widest">
+        © {new Date().getFullYear()} JMV DEVELOPERS. ALL RIGHTS RESERVED.
+      </div>
     </motion.footer>
   );
-}
+};
+
+export default Footer;
