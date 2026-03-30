@@ -7,38 +7,26 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 // 1. Define the Property Data
 const properties = [
   {
-    id: "island-heights",
-    title: "The Island Heights",
+    id: "harit-homes",
+    title: "Harit Homes",
     description:
-      "Just minutes from Wynn Al Marjan Island and moments from the beach, The Island Heights offers 165 luxury apartments with stunning coastal views waiting to be discovered.",
-    image:
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1000&auto=format&fit=crop",
+      "A perfect combination of premium features, Harit Homes Plots truly make a 'Great place to live' a stunning reality. Project Cost: Rs. 826,500,000.",
+    image: "/images/project/project1.jpg",
   },
   {
-    id: "beach-vista",
-    title: "The Beach Vista",
+    id: "green-view-farm",
+    title: "Green View Farm",
     description:
-      "The Beach Vista offers 151 exquisite studio, 1- and 2-bedroom residences on Al Marjan Island, opposite Wynn Al Marjan, with serene, panoramic views of the Arabian Gulf.",
-    image:
-      "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=1000&auto=format&fit=crop",
+      "An eco-friendly planned society, Green View Farms features beautiful, lush green environments across 100 acres of area. Project Cost: Rs. 150 Crore.",
+    image: "/images/project/project2.jpg",
   },
   {
-    id: "beach-residences",
-    title: "The Beach Residences",
+    id: "lakshya-group",
+    title: "Lakshya Group",
     description:
-      "Experience the ultimate beachfront lifestyle with private access to pristine sands, world-class amenities, and breathtaking sunsets from your balcony.",
-    image:
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1000&auto=format&fit=crop",
+      "Evolving into one of India's fastest-growing real estate development companies, Lakshya delivers modern excellence. Project Cost: Rs. 655,440,000.",
+    image: "/images/project/project3.jpg",
   },
-  {
-    id: "beach-house",
-    title: "The Beach House",
-    description:
-      "A sanctuary of peace featuring modern architectural design, lush private gardens, and an infinity pool that blends seamlessly into the ocean horizon.",
-    image:
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000&auto=format&fit=crop",
-  },
-
 ];
 
 // 2. Sub-component to detect when an image scrolls into view
@@ -91,7 +79,7 @@ export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="relative w-full bg-white text-slate-800">
+    <section className="relative w-full bg-white text-black">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row px-6 md:px-12 relative">
         {/* Left Side: Scrolling Images */}
         <div className="w-full md:w-1/2 pt-[10vh] pb-[30vh]">
@@ -109,7 +97,7 @@ export default function Projects() {
         {/* Right Side: Sticky Text */}
         <div className="w-full md:w-1/2 relative">
           <div className="sticky top-0 h-screen flex flex-col justify-center pl-0 md:pl-20 py-20">
-            <p className="text-2xl md:text-3xl font-semibold text-slate-500 tracking-widest uppercase mb-12">
+            <p className="text-2xl md:text-3xl font-serif font-bold text-black tracking-widest uppercase mb-12">
               Our Projects
             </p>
 

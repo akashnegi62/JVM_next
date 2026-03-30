@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { MdOutlineLocationOn } from "react-icons/md";
+import { GoDotFill } from "react-icons/go";
 
 // Define the slide data structure
 interface Slide {
@@ -16,38 +16,33 @@ interface Slide {
 const slides: Slide[] = [
   {
     id: 1,
-    image:
-      "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=2070&auto=format&fit=crop",
-    title: "A Sanctuary Shaped by Sea & Forests",
-    location: "SIX SENSES LA SAGESSE",
+    image: "/images/hero/hero1.jpg",
+    title: "JMV Developers",
+    location: "JMV DEVELOPERS",
   },
   {
     id: 2,
-    image:
-      "https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=2134&auto=format&fit=crop",
-    title: "Where Nature Meets Pure Luxury",
-    location: "ALPINE RETREAT",
+    image: "/images/hero/hero2.jpg",
+    title: "Where Our Work is Our Passion",
+    location: "UNMATCHED QUALITY & SERVICE",
   },
   {
     id: 3,
-    image:
-      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2070&auto=format&fit=crop",
-    title: "Escape to an Island Paradise",
-    location: "TROPICAL HAVEN",
+    image: "/images/hero/hero3.jpg",
+    title: "Design Your Dream Modern House",
+    location: "SUSTAINABLE ARCHITECTURE",
   },
   {
     id: 4,
-    image:
-      "https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=2070&auto=format&fit=crop",
-    title: "Tranquility Beyond the Horizon",
-    location: "OCEAN VIEW VILLA",
+    image: "/images/hero/hero4.jpg",
+    title: "Affordable Luxury & Low-Cost Tech",
+    location: "SMART HOUSING SOLUTIONS",
   },
   {
     id: 5,
-    image:
-      "https://images.unsplash.com/photo-1582610116397-edb318620f90?q=80&w=2070&auto=format&fit=crop",
-    title: "Find Your Inner Peace",
-    location: "DESERT OASIS",
+    image: "/images/hero/hero5.jpg",
+    title: "Your Trusted Real Estate Partner",
+    location: "ESTABLISHED IN 2008",
   },
 ];
 
@@ -121,9 +116,9 @@ export default function Hero() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.8 }}
-              className="absolute right-0 bottom-6 flex items-center gap-2 text-white/90 font-medium tracking-widest text-xs md:text-sm uppercase"
+              className="absolute right-0 bottom-6 flex items-center gap-2 text-white/90 font-medium tracking-widest text-sm md:text-sm uppercase"
             >
-              <MdOutlineLocationOn className="text-xl" />
+              <GoDotFill className="text-xl" />
               <span>{slides[currentIndex].location}</span>
             </motion.div>
           </AnimatePresence>

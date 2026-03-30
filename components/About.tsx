@@ -31,7 +31,7 @@ const cardVariants = {
   },
   hover: {
     y: -8,
-    borderColor: "rgba(20, 184, 166, 0.4)",
+    borderColor: "#f29a00",
     transition: {
       duration: 0.3,
       ease: "easeInOut" as const,
@@ -67,7 +67,7 @@ const PrincipleCard: React.FC<PrincipleCardProps> = ({
 
         <div className="flex-1 pt-2">
           <motion.h4
-            className="text-base font-semibold text-teal-700 uppercase tracking-wider leading-tight group-hover:text-teal-600 transition-colors duration-300"
+            className="text-base font-semibold text-[#f29a00] uppercase tracking-wider leading-tight group-hover:text-[#f29a00] transition-colors duration-300"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -80,14 +80,14 @@ const PrincipleCard: React.FC<PrincipleCardProps> = ({
 
       {/* Horizontal Line */}
       <motion.div
-        className="w-full h-px bg-linear-to-r from-teal-500 to-transparent mb-6"
+        className="w-full h-px bg-linear-to-r from-orange-400 to-transparent mb-6"
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.3, duration: 0.5 }}
         whileHover={{
           scaleX: 1.02,
-          backgroundColor: "rgba(20, 184, 166, 0.8)",
+          backgroundColor: "#f29a00",
         }}
       />
 
@@ -117,26 +117,26 @@ export default function About() {
   const principles = [
     {
       number: "01",
-      title: "Craftsmanship That Defines Luxury",
+      title: "Building the New India",
       description:
-        "Our properties embody the precision and artistry found in the world's most exclusive real estate. From bespoke interiors to immersive outdoor spaces, we pursue an uncompromising level of detail that transforms every home, villa, and resort into a signature living experience.",
+        "We are dedicated to building significantly to create the new India. Our primary goal is to become the nation's most valuable real estate company by delivering landmark projects that redefine urban living and contribute to the country's monumental growth and infrastructure.",
     },
     {
       number: "02",
-      title: "Sustainable Luxury, Rooted in Nature",
+      title: "Excellence & Aesthetics",
       description:
-        "We develop environments where coastal, desert, and mountain landscapes remain central to the experience. We champion eco-sensitive development—designing communities that preserve natural beauty while offering modern comfort, wellness-focused amenities, and long-term value for residents and investors.",
+        "We strive to achieve international standards of excellence across all our developments. By maintaining an unwavering focus on superior quality, stunning aesthetics, and ultimate customer satisfaction, we ensure every project reflects our commitment to delivering world-class spaces.",
     },
     {
       number: "03",
-      title: "Lifestyle-Centric Experiences",
+      title: "Community & Environment",
       description:
-        "Beyond properties, we create lifestyle destinations, from serene waterfront enclaves to elevated wellness retreats, designed around how people aspire to live. Our developments foster connection, privacy, and well-being, delivering a standard of living that defines premium real estate.",
+        "We operate with profound respect for the communities and environments where we build. By strictly adhering to all legal requirements and prioritizing sustainable practices, we create responsible developments that harmonize with nature and foster long-term prosperity for everyone.",
     },
   ];
 
   return (
-    <section className="min-h-[50vh] bg-linear-to-t from-white via-orange-50 to-orange-100 py-24 px-4 sm:px-6 lg:px-8">
+    <section className="min-h-[50vh] py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -157,7 +157,7 @@ export default function About() {
           </motion.h2>
 
           <motion.div
-            className="w-24 h-px bg-linear-to-r from-transparent via-teal-500 to-transparent mx-auto"
+            className="w-24 h-px bg-linear-to-r from-transparent via-[#f29a00] to-transparent mx-auto"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}

@@ -18,47 +18,47 @@ interface VerticalCard {
 const verticals: VerticalCard[] = [
   {
     id: 1,
-    category: "RESIDENTIAL",
-    title: "Luxury Living Spaces",
-    description: "Crafting homes that define modern lifestyle.",
-    image:
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1000&auto=format&fit=crop",
+    category: "INFRASTRUCTURE",
+    title: "Expressway Safety Upgrades",
+    description:
+      "Upgrading Yamuna Expressway with modern LED lights and secure crash barriers.",
+    image: "/images/news/news1.jpg",
     color: "from-gray-900 to-transparent",
   },
   {
     id: 2,
-    category: "RETAIL",
-    title: "Commercial Hubs",
-    description: "Destinations designed for commerce and community.",
-    image:
-      "https://images.unsplash.com/photo-1519567241046-7f570eee3d9f?q=80&w=1000&auto=format&fit=crop",
+    category: "AVIATION",
+    title: "Greater Noida Jewar Airport",
+    description:
+      "The highly anticipated Jewar International Airport is rapidly becoming reality.",
+    image: "/images/news/news2.jpg",
     color: "from-gray-900 to-transparent",
   },
   {
     id: 3,
-    category: "OFFICES",
-    title: "Urbana Premium",
-    description: "Business environments that inspire success and productivity.",
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop",
+    category: "INSTITUTIONAL",
+    title: "Strategic CRPF Base Campus",
+    description:
+      "Allocating 30 prime acres along the Yamuna Expressway for a new CRPF base.",
+    image: "/images/news/news3.jpg",
     color: "from-blue-900 to-transparent",
   },
   {
     id: 4,
-    category: "SERVICED APARTMENTS",
-    title: "Comfort & Convenience",
-    description: "Short stays with long-lasting impressions.",
-    image:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000&auto=format&fit=crop",
+    category: "EXPANSION",
+    title: "Successful Land Acquisition",
+    description:
+      "Over 118 property owners have officially agreed to support the airport growth.",
+    image: "/images/news/news4.jpg",
     color: "from-gray-900 to-transparent",
   },
   {
     id: 5,
-    category: "LEASING",
-    title: "Prime Properties",
-    description: "Flexible leasing options for every need.",
-    image:
-      "https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=1000&auto=format&fit=crop",
+    category: "AGRICULTURE",
+    title: "JMV Developers Farm Estates",
+    description:
+      "Discover premium agricultural spaces exclusively managed by JMV Developers.",
+    image: "/images/news/news5.jpg",
     color: "from-gray-900 to-transparent",
   },
 ];
@@ -90,7 +90,7 @@ export default function News() {
       {/* HEADING SECTION */}
       <div className="relative z-20 px-6 md:px-10 pt-16 pb-8 max-w-7xl mx-auto">
         <motion.h1
-          className="text-4xl md:text-6xl font-light text-white tracking-tight"
+          className="text-4xl md:text-6xl font-serif text-white tracking-tight"
           variants={headingVariants}
           initial="hidden"
           animate="visible"
