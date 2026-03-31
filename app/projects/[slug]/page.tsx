@@ -1,241 +1,218 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useParams } from "next/navigation";
-import { projects } from "@/data/projects";
 import Image from "next/image";
-import { FiDownload } from "react-icons/fi";
-import Link from "next/link";
+import { projects } from "@/data/projects";
+import {
+  PiMapPinLight,
+  PiUmbrellaLight,
+  PiCityLight,
+  PiHouseLineLight,
+  PiBuildingsLight,
+  PiTreePalmLight,
+  PiCubeLight,
+  PiChatCircleTextFill,
+  PiArrowUpLight,
+} from "react-icons/pi";
 
-export default function ProjectPage() {
+export default function Project() {
   const params = useParams();
   const project = projects.find((p) => p.slug === params.slug);
 
+  // Parallax setup for the hero section
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+  const yPos = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+
   if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h1 className="text-3xl font-bold text-gray-800">Project Not Found</h1>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <h1 className="text-3xl font-serif text-gray-800 tracking-wide">
+          Project Not Found
+        </h1>
       </div>
     );
   }
 
+  // Map your dynamic project details to the 5 bottom stats
+  const stats = [
+    { icon: <PiCityLight />, title: "LOCATION", desc: project.location },
+    {
+      icon: <PiCubeLight />,
+      title: "SURFACE AREA",
+      desc: project.projectDetails?.surfaceArea || "N/A",
+    },
+    {
+      icon: <PiBuildingsLight />,
+      title: "COMPLETED",
+      desc: project.projectDetails?.yearCompleted || "N/A",
+    },
+    {
+      icon: <PiHouseLineLight />,
+      title: "VALUE",
+      desc: `₹ ${project.projectDetails?.value || "N/A"}`,
+    },
+    {
+      icon: <PiTreePalmLight />,
+      title: "ARCHITECT",
+      desc: project.projectDetails?.architect || "N/A",
+    },
+  ];
+
   return (
-    <div className="relative min-h-screen bg-gray-50">
-      {/* Hero Banner with Background Image */}
-      <section className="relative h-100 flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-fixed"
-          style={{
-            backgroundImage: `url(${project.images[0]})`,
-          }}
-        />
+    <div className="relative min-h-screen bg-white font-sans text-gray-900 overflow-hidden">
+      {/* 1. Hero Section (Exact Match to Image Top) */}
+      <section
+        ref={containerRef}
+        className="relative h-[85vh] md:h-screen lg:h-screen w-full overflow-hidden"
+      >
+        {/* Parallax Background */}
+        <motion.div
+          style={{ y: yPos, opacity }}
+          className="absolute inset-0 z-0 origin-top"
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center h-[120%] w-full"
+            style={{ backgroundImage: `url(${project.images[0]})` }}
+          />
+        </motion.div>
 
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/50" />
+        {/* Dark linear Overlay for text readability at bottom */}
+        <div className="absolute inset-0 z-10 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
 
-        {/* Content */}
-        <div className="relative z-10 text-center px-4">
+        {/* Hero Title Bottom Left */}
+        <div className="absolute bottom-16 left-8 md:left-16 z-20">
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold text-white mb-4"
+            transition={{ duration: 1, delay: 0.2 }}
+            className="text-white text-5xl md:text-7xl font-serif font-light tracking-wide"
           >
             {project.name}
           </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto"
-          >
-            {project.tagline}
-          </motion.p>
         </div>
       </section>
 
-      {/* Main Content Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-          {/* Left Side - About Project */}
-          <div className="order-1 lg:order-1 space-y-12">
-            {/* About Project Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-3xl font-bold text-gray-800 mb-6">
-                About Project
-              </h2>
-              <p className="text-gray-600 leading-relaxed text-lg mb-8">
-                {project.description}
+      {/* 2. Info & Image Split Section (Exact Match to Image Middle) */}
+      <section className="max-w-7xl mx-auto px-8 md:px-16 py-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        {/* Left Text Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="pr-0 md:pr-8"
+        >
+          <h2 className="text-4xl md:text-5xl font-serif text-gray-800 mb-6 leading-[1.15]">
+            {project.tagline || "Discover Premium Living and Architecture"}
+          </h2>
+
+          <p className="text-gray-500 mb-12 text-sm md:text-base leading-relaxed max-w-lg">
+            {project.description}
+          </p>
+
+          {/* Two Column Feature Split underneath description */}
+          <div className="flex flex-col sm:flex-row gap-8 border-t border-gray-200 pt-8 max-w-lg">
+            <div className="flex-1">
+              <PiMapPinLight className="text-gray-300 text-4xl mb-4" />
+              <h3 className="font-serif text-xl text-gray-800 mb-2">
+                Prime Location
+              </h3>
+              <p className="text-gray-500 text-xs md:text-sm leading-relaxed">
+                {project.features?.[0] ||
+                  "Strategically located for convenience."}
               </p>
+            </div>
 
-              {/* Features */}
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 mb-4">
-                  Key Features
-                </h3>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {project.features.map((feature, index) => (
-                    <motion.li
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.05 }}
-                      className="flex items-center gap-3"
-                    >
-                      <div className="w-2 h-2 bg-orange-500 rounded-full" />
-                      <span className="text-gray-700">{feature}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
+            {/* Vertical Divider */}
+            <div className="hidden sm:block w-px bg-gray-200 mt-2"></div>
 
-              {/* Project Images */}
-              <div className="grid grid-cols-2 gap-4 mt-8">
-                {project.images.map((image, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className={`relative rounded-2xl overflow-hidden ${
-                      index === 0 ? "col-span-2 h-64" : "h-48"
-                    }`}
-                  >
-                    <Image
-                      src={image}
-                      alt={`${project.name} - Image ${index + 1}`}
-                      fill
-                      className="object-cover hover:scale-110 transition-transform duration-500"
-                    />
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Right Side - Sticky Project Details */}
-          <div className="order-2 lg:order-2">
-            <div className="sticky top-20">
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="rounded-lg p-8"
-              >
-                {/* Project Details Header */}
-                <h3 className="text-3xl font-bold text-gray-700 mb-8 uppercase tracking-wide">
-                  PROJECT DETAILS
-                </h3>
-
-                {/* Details List */}
-                <div className="space-y-4 mb-8">
-                  {/* Location */}
-                  <div className="flex flex-col gap-1">
-                    <span className="text-base font-bold text-amber-600">
-                      Location:
-                    </span>
-                    <span className="text-gray-600">{project.location}</span>
-                  </div>
-
-                  {/* Surface Area */}
-                  <div className="flex flex-col gap-1">
-                    <span className="text-base font-bold text-amber-600">
-                      Surface Area:
-                    </span>
-                    <span className="text-gray-600">
-                      {project.projectDetails.surfaceArea}
-                    </span>
-                  </div>
-
-                  {/* Year Completed */}
-                  <div className="flex flex-col gap-1">
-                    <span className="text-base font-bold text-amber-600">
-                      Year Completed:
-                    </span>
-                    <span className="text-gray-600">
-                      {project.projectDetails.yearCompleted}
-                    </span>
-                  </div>
-
-                  {/* Value */}
-                  <div className="flex flex-col gap-1">
-                    <span className="text-base font-bold text-amber-600">
-                      Value:
-                    </span>
-                    <span className="text-gray-600">
-                      ₹ {project.projectDetails.value}
-                    </span>
-                  </div>
-
-                  {/* Architect */}
-                  <div className="flex flex-col gap-1">
-                    <span className="text-base font-bold text-amber-600">
-                      Architect:
-                    </span>
-                    <span className="text-gray-600">
-                      {project.projectDetails.architect}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Brochures Section */}
-                <div className="mb-6">
-                  <h4 className="text-xl font-bold text-amber-600 mb-4">
-                    {project.name} Brochures
-                  </h4>
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded flex items-center justify-center gap-3 transition-colors"
-                  >
-                    <FiDownload className="w-5 h-5" />
-                    <span>Download PDF</span>
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                      />
-                    </svg>
-                  </motion.button>
-                </div>
-
-                {/* Purchase Property Form */}
-                <div>
-                  <h4 className="text-xl font-bold text-amber-600 mb-4">
-                    Purchase Property Form
-                  </h4>
-                  <Link href="/contact">
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded transition-colors"
-                    >
-                      Purchase Property
-                    </motion.button>
-                  </Link>
-                </div>
-              </motion.div>
+            <div className="flex-1">
+              <PiUmbrellaLight className="text-gray-300 text-4xl mb-4" />
+              <h3 className="font-serif text-xl text-gray-800 mb-2">
+                Unique Aspect
+              </h3>
+              <p className="text-gray-500 text-xs md:text-sm leading-relaxed">
+                {project.features?.[1] ||
+                  "Designed with unparalleled luxury in mind."}
+              </p>
             </div>
           </div>
+        </motion.div>
+
+        {/* Right Image */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="relative h-112 md:h-137 w-full"
+        >
+          <Image
+            src={project.images[1] || project.images[0]}
+            alt={`${project.name} exterior`}
+            fill
+            className="object-cover shadow-xl"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        </motion.div>
+      </section>
+
+      {/* 3. Stats / Features Strip (Exact Match to Image Bottom) */}
+      <section className="border-t border-gray-200 bg-white py-12 md:py-16">
+        <div className="max-w-360 mx-auto px-4">
+          <div className="flex flex-wrap lg:flex-nowrap justify-center lg:justify-between items-start divide-y lg:divide-y-0 lg:divide-x divide-gray-200">
+            {stats.map((stat, i) => (
+              <motion.div
+                key={i}
+                className="flex-1 w-full lg:w-auto py-8 lg:py-0 px-4 flex flex-col items-center justify-center text-center relative"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+              >
+                {/* Decorative Diamond on borders (optional, mimics the screenshot's node points) */}
+                {i !== 0 && (
+                  <div className="hidden lg:block absolute -left-1.25 top-1/2 -translate-y-1/2 w-2 h-2 border border-gray-200 bg-white rotate-45" />
+                )}
+
+                <div className="text-teal-600/50 text-[2.5rem] mb-4 stroke-[1px]">
+                  {stat.icon}
+                </div>
+                <h4 className="text-[10px] md:text-xs font-bold tracking-[0.15em] text-[#0B4C5A] uppercase mb-2">
+                  {stat.title}
+                </h4>
+                <p className="text-xs md:text-sm text-gray-500 font-light max-w-37">
+                  {stat.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
+
+      {/* 4. Floating Action Buttons */}
+      <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-3">
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="bg-[#2A2A2A] text-white p-3.5 rounded-full shadow-lg hover:bg-black transition-colors flex items-center justify-center"
+          aria-label="Scroll to top"
+        >
+          <PiArrowUpLight className="text-xl" />
+        </button>
+        <button
+          className="bg-[#0B4C5A] text-white p-3.5 rounded-full shadow-lg hover:bg-[#083b46] transition-colors flex items-center justify-center"
+          aria-label="Chat"
+        >
+          <PiChatCircleTextFill className="text-xl" />
+        </button>
+      </div>
     </div>
   );
 }

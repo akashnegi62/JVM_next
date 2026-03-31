@@ -16,31 +16,31 @@ interface Slide {
 const slides: Slide[] = [
   {
     id: 1,
-    image: "/images/hero/hero1.jpg",
+    image: "/images/hero1.jpg",
     title: "JMV Developers",
-    location: "JMV DEVELOPERS",
+    location: "REAL ESTATE DEVELOPMENT COMPANY",
   },
   {
     id: 2,
-    image: "/images/hero/hero2.jpg",
+    image: "/images/hero2.jpg",
     title: "Where Our Work is Our Passion",
     location: "UNMATCHED QUALITY & SERVICE",
   },
   {
     id: 3,
-    image: "/images/hero/hero3.jpg",
+    image: "/images/hero3.jpg",
     title: "Design Your Dream Modern House",
     location: "SUSTAINABLE ARCHITECTURE",
   },
   {
     id: 4,
-    image: "/images/hero/hero4.jpg",
+    image: "/images/hero4.jpg",
     title: "Affordable Luxury & Low-Cost Tech",
     location: "SMART HOUSING SOLUTIONS",
   },
   {
     id: 5,
-    image: "/images/hero/hero5.jpg",
+    image: "/images/hero5.jpg",
     title: "Your Trusted Real Estate Partner",
     location: "ESTABLISHED IN 2008",
   },
