@@ -9,20 +9,17 @@ import { PiBuildingsLight, PiTreePalmLight } from "react-icons/pi";
 const heroSlides = [
   {
     id: 1,
-    image:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop",
+    image: "/images/career1.avif",
     alt: "Corporate Office Environment",
   },
   {
     id: 2,
-    image:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/career2.webp",
     alt: "Team Collaboration and Meeting",
   },
   {
     id: 3,
-    image:
-      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2073&auto=format&fit=crop",
+    image: "/images/career3.webp",
     alt: "Luxury Real Estate Property",
   },
 ];
