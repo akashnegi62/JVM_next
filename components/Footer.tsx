@@ -43,7 +43,7 @@ const Footer = () => {
               <h3 className="text-lg md:text-2xl lg:text-3xl font-semibold text-white">
                 JMV Developers
               </h3>
-              <p className="text-gray-300 leading-relaxed text-xs md:text-base lg:text-lg">
+              <p className="text-gray-300 leading-relaxed text-sm md:text-lg lg:text-xl">
                 Established in 2008, JMV Developers is a renowned brand catering
                 to all your Real Estate needs. We assure you full satisfaction
                 regarding quality, commitment, and service.
@@ -70,7 +70,7 @@ const Footer = () => {
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold pb-2 md:pb-3">
               Information
             </h2>
-            <ul className="space-y-2 md:space-y-4 text-gray-300 font-medium text-xs md:text-base lg:text-lg">
+            <ul className="space-y-2 md:space-y-4 text-gray-300 font-medium text-sm md:text-lg lg:text-xl">
               {[
                 "Home",
                 "About",
@@ -97,7 +97,7 @@ const Footer = () => {
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold pb-2 md:pb-3 text-left">
               Contact
             </h2>
-            <div className="space-y-3 md:space-y-6 text-gray-300 text-xs md:text-base lg:text-lg">
+            <div className="space-y-3 md:space-y-6 text-gray-300 text-sm md:text-lg lg:text-xl">
               <div className="flex items-start gap-2 md:gap-4">
                 <FaMapMarkerAlt className="mt-1 shrink-0 text-lg md:text-2xl" />
                 <p>

@@ -119,12 +119,12 @@ export default function Hero() {
             className="flex flex-col items-center gap-6"
           >
             {/* Title */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif tracking-wide drop-shadow-xl">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif tracking-wide drop-shadow-xl">
               {slides[currentIndex].title}
             </h1>
 
             {/* Subtitle/Location */}
-            <div className="flex items-center gap-2 text-white/90 font-medium tracking-widest text-xs md:text-sm uppercase bg-black/40 px-4 py-2 rounded-full backdrop-blur-sm">
+            <div className="flex items-center gap-2 text-white/90 font-medium tracking-widest text-sm md:text-lg lg:text-lg uppercase bg-black/40 px-4 py-2 rounded-full backdrop-blur-sm">
               <GoDotFill className="text-xl" />
               <span>{slides[currentIndex].location}</span>
             </div>

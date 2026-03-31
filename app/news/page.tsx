@@ -120,7 +120,7 @@ export default function News() {
   return (
     <main className="w-full min-h-screen bg-white text-slate-900">
       {/* 1. Hero Section */}
-      <section className="relative w-full h-screen bg-zinc-900 flex items-end overflow-hidden">
+      <section className="relative w-full h-[80vh] md:h-[90vh] lg:h-screen bg-zinc-900 flex items-end overflow-hidden">
         {/* Animated Background Images */}
         <AnimatePresence initial={false}>
           <motion.div
@@ -204,7 +204,7 @@ export default function News() {
           <h2 className="text-5xl md:text-6xl font-serif text-slate-800">
             All Articles
           </h2>
-          <p className="text-sm text-gray-500 max-w-md md:text-right leading-relaxed">
+          <p className="text-lg md:text-xl lg:text-xl text-gray-500 max-w-md md:text-right leading-relaxed">
             Discover all the latest updates, insights, and valuable resources
             right here. This hub provides blog posts, press releases, and
             detailed guides to keep you up to date on our projects.

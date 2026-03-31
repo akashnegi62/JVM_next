@@ -13,8 +13,6 @@ import {
   PiBuildingsLight,
   PiTreePalmLight,
   PiCubeLight,
-  PiChatCircleTextFill,
-  PiArrowUpLight,
 } from "react-icons/pi";
 
 export default function Project() {
@@ -70,7 +68,7 @@ export default function Project() {
       {/* 1. Hero Section (Exact Match to Image Top) */}
       <section
         ref={containerRef}
-        className="relative h-[85vh] md:h-screen lg:h-screen w-full overflow-hidden bg-zinc-900"
+        className="relative h-[80vh] md:h-[90vh] lg:h-screen w-full overflow-hidden bg-zinc-900"
       >
         {/* Parallax Background */}
         <motion.div
@@ -113,7 +111,7 @@ export default function Project() {
             {project.tagline || "Discover Premium Living and Architecture"}
           </h2>
 
-          <p className="text-gray-500 mb-12 text-sm md:text-base leading-relaxed max-w-lg">
+          <p className="text-gray-500 mb-12 text-lg md:text-xl lg:text-xl leading-relaxed max-w-lg">
             {project.description}
           </p>
 
@@ -121,10 +119,10 @@ export default function Project() {
           <div className="flex flex-col sm:flex-row gap-8 border-t border-gray-200 pt-8 max-w-lg">
             <div className="flex-1">
               <PiMapPinLight className="text-gray-300 text-4xl mb-4" />
-              <h3 className="font-serif text-xl text-gray-800 mb-2">
+              <h3 className="font-serif text-lg md:text-xl lg:text-xl text-gray-800 mb-2">
                 Prime Location
               </h3>
-              <p className="text-gray-500 text-xs md:text-sm leading-relaxed">
+              <p className="text-gray-500 text-lg md:text-xl lg:text-xl leading-relaxed">
                 {project.features?.[0] ||
                   "Strategically located for convenience."}
               </p>
@@ -135,10 +133,10 @@ export default function Project() {
 
             <div className="flex-1">
               <PiUmbrellaLight className="text-gray-300 text-4xl mb-4" />
-              <h3 className="font-serif text-xl text-gray-800 mb-2">
+              <h3 className="font-serif text-lg md:text-xl lg:text-xl text-gray-800 mb-2">
                 Unique Aspect
               </h3>
-              <p className="text-gray-500 text-xs md:text-sm leading-relaxed">
+              <p className="text-gray-500 text-lg md:text-xl lg:text-xl leading-relaxed">
                 {project.features?.[1] ||
                   "Designed with unparalleled luxury in mind."}
               </p>
@@ -185,10 +183,10 @@ export default function Project() {
                 <div className="text-teal-600/50 text-[2.5rem] mb-4 stroke-[1px]">
                   {stat.icon}
                 </div>
-                <h4 className="text-[10px] md:text-xs font-bold tracking-[0.15em] text-[#0B4C5A] uppercase mb-2">
+                <h4 className="text-lg md:text-xl lg:text-xl font-bold tracking-[0.15em] text-[#0B4C5A] uppercase mb-2">
                   {stat.title}
                 </h4>
-                <p className="text-xs md:text-sm text-gray-500 font-light max-w-37">
+                <p className="text-lg md:text-xl lg:text-xl text-gray-500 font-light max-w-37">
                   {stat.desc}
                 </p>
               </motion.div>
@@ -196,23 +194,6 @@ export default function Project() {
           </div>
         </div>
       </section>
-
-      {/* 4. Floating Action Buttons */}
-      <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-3">
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="bg-[#2A2A2A] text-white p-3.5 rounded-full shadow-lg hover:bg-black transition-colors flex items-center justify-center"
-          aria-label="Scroll to top"
-        >
-          <PiArrowUpLight className="text-xl" />
-        </button>
-        <button
-          className="bg-[#0B4C5A] text-white p-3.5 rounded-full shadow-lg hover:bg-[#083b46] transition-colors flex items-center justify-center"
-          aria-label="Chat"
-        >
-          <PiChatCircleTextFill className="text-xl" />
-        </button>
-      </div>
     </div>
   );
 }

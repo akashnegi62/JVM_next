@@ -42,7 +42,7 @@ export default function Career() {
   return (
     <main className="w-full min-h-screen bg-white text-slate-900 font-sans">
       {/* 1. Hero Section */}
-      <section className="relative w-full h-screen overflow-hidden bg-zinc-900">
+      <section className="relative w-full h-[80vh] md:h-[90vh] lg:h-screen overflow-hidden bg-zinc-900">
         {/* Animated Background Images */}
         <AnimatePresence initial={false}>
           <motion.div
@@ -133,7 +133,7 @@ export default function Career() {
             Unlock Exclusive
             <br /> Job Opportunities
           </h2>
-          <p className="text-gray-500 leading-relaxed mb-8 font-light text-[15px] md:text-lg lg:text-xl pr-4">
+          <p className="text-gray-500 leading-relaxed mb-8 font-light text-lg md:text-xl lg:text-xl pr-4">
             Join a network of passionate professionals and industry experts
             shaping the future of real estate in India. JMV Developers has built
             a strong reputation for quality, trust, and timely delivery,
@@ -183,7 +183,7 @@ export default function Career() {
             <h4 className="text-[13px] uppercase tracking-wider font-bold text-slate-800 mb-4">
               Job Titles
             </h4>
-            <p className="text-gray-500 font-light text-[15px] leading-relaxed">
+            <p className="text-gray-500 font-light text-lg md:text-xl lg:text-xl leading-relaxed">
               Real Estate Clerk, Real Estate Manager, Sales Assistant
             </p>
           </div>
@@ -197,7 +197,7 @@ export default function Career() {
             <h4 className="text-[13px] uppercase tracking-wider font-bold text-slate-800 mb-4">
               Skill Sets
             </h4>
-            <p className="text-gray-500 font-light text-[15px] leading-relaxed">
+            <p className="text-gray-500 font-light text-lg md:text-xl lg:text-xl leading-relaxed">
               High Performance, Passionate Teamwork, Dedication, Energetic,
               Problem Solving, Initiative & Enterprise
             </p>

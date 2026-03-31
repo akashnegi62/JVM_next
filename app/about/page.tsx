@@ -105,7 +105,7 @@ export default function About() {
     <main className="w-full min-h-screen bg-white text-slate-900 font-sans pb-20">
       {/* 1. Hero Section (Animated Slider & h-screen) */}
 
-      <section className="relative w-full h-screen overflow-hidden bg-zinc-900">
+      <section className="relative w-full h-[80vh] md:h-[90vh] lg:h-screen overflow-hidden bg-zinc-900">
         {/* Animated Background Images */}
 
         <AnimatePresence initial={false}>
@@ -245,7 +245,7 @@ export default function About() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="w-full lg:w-7/12 flex flex-col gap-6"
         >
-          <p className="text-gray-600 font-light text-sm md:text-xl leading-relaxed text-justify md:text-left">
+          <p className="text-gray-600 font-light text-lg md:text-xl lg:text-xl leading-relaxed text-justify md:text-left">
             JMV Developers, established in 2008, is a renowned real estate brand
             delivering quality residential and lifestyle projects across India.
             With a strong network and years of industry experience, the company
@@ -256,7 +256,7 @@ export default function About() {
             diverse lifestyle needs.
           </p>
 
-          <p className="text-gray-600 font-light text-sm md:text-xl leading-relaxed text-justify md:text-left mb-6">
+          <p className="text-gray-600 font-light text-lg md:text-xl lg:text-xl leading-relaxed text-justify md:text-left mb-6">
             Expanding its footprint in recent years, JMV Developers is shaping
             quality real estate across key locations, from residential plots to
             builder floors, villas, and farmhouses—while continuing to deliver
