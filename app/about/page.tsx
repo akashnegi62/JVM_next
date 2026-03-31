@@ -105,7 +105,7 @@ export default function About() {
     <main className="w-full min-h-screen bg-white text-slate-900 font-sans pb-20">
       {/* 1. Hero Section (Animated Slider & h-screen) */}
 
-      <section className="relative w-full h-screen overflow-hidden">
+      <section className="relative w-full h-screen overflow-hidden bg-zinc-900">
         {/* Animated Background Images */}
 
         <AnimatePresence initial={false}>

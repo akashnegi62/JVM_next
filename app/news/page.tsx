@@ -120,7 +120,7 @@ export default function News() {
   return (
     <main className="w-full min-h-screen bg-white text-slate-900">
       {/* 1. Hero Section */}
-      <section className="relative w-full h-screen flex items-end overflow-hidden">
+      <section className="relative w-full h-screen bg-zinc-900 flex items-end overflow-hidden">
         {/* Animated Background Images */}
         <AnimatePresence initial={false}>
           <motion.div

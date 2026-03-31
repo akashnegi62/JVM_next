@@ -70,7 +70,7 @@ export default function Project() {
       {/* 1. Hero Section (Exact Match to Image Top) */}
       <section
         ref={containerRef}
-        className="relative h-[85vh] md:h-screen lg:h-screen w-full overflow-hidden"
+        className="relative h-[85vh] md:h-screen lg:h-screen w-full overflow-hidden bg-zinc-900"
       >
         {/* Parallax Background */}
         <motion.div

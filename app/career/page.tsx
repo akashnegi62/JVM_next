@@ -42,7 +42,7 @@ export default function Career() {
   return (
     <main className="w-full min-h-screen bg-white text-slate-900 font-sans">
       {/* 1. Hero Section */}
-      <section className="relative w-full h-screen overflow-hidden">
+      <section className="relative w-full h-screen overflow-hidden bg-zinc-900">
         {/* Animated Background Images */}
         <AnimatePresence initial={false}>
           <motion.div

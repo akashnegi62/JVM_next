@@ -20,9 +20,9 @@ const ContactPage = () => {
   return (
     <main className="min-h-screen bg-white">
       {/* --- 1. Full Height Hero Section --- */}
-      <section className="relative h-screen w-full overflow-hidden">
+      <section className="relative h-screen w-full overflow-hidden bg-zinc-900">
         <Image
-          src="hero1.jpg"
+          src="/hero1.jpg"
           alt="Luxury Resort"
           fill
           priority
