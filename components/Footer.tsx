@@ -22,7 +22,7 @@ const Footer = () => {
       transition={{ duration: 0.8 }}
       className="fixed bottom-0 left-0 w-full min-h-screen -z-10 flex flex-col justify-end overflow-hidden"
       style={{
-        backgroundImage: 'url("/images/hero4.jpg")',
+        backgroundImage: 'url("/hero4.jpg")',
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

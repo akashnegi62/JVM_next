@@ -9,21 +9,21 @@ import { FiChevronDown } from "react-icons/fi";
 const heroSlides = [
   {
     id: 1,
-    image: "/images/news1.jpg",
+    image: "/news1.jpg",
     subtitle: "Media Centre",
     title:
       "Upgrading Yamuna Expressway with modern LED lights and secure crash barriers.",
   },
   {
     id: 2,
-    image: "/images/news2.jpg",
+    image: "/news2.jpg",
     subtitle: "Awards & Recognition",
     title:
       "The highly anticipated Jewar International Airport is rapidly becoming reality.",
   },
   {
     id: 3,
-    image: "/images/news3.jpg",
+    image: "/news3.jpg",
     subtitle: "New Launch",
     title:
       "Allocating 30 prime acres along the Yamuna Expressway for a new CRPF base.",
@@ -34,7 +34,7 @@ const heroSlides = [
 const articles = [
   {
     id: 1,
-    image: "/images/news1.jpg",
+    image: "/news1.jpg",
     category: "Press Media",
     date: "October 10, 2025",
     title:
@@ -42,7 +42,7 @@ const articles = [
   },
   {
     id: 2,
-    image: "/images/news2.jpg",
+    image: "/news2.jpg",
     category: "Press Media",
     date: "October 30, 2024",
     title:
@@ -50,7 +50,7 @@ const articles = [
   },
   {
     id: 3,
-    image: "/images/news3.jpg",
+    image: "/news3.jpg",
     category: "Press Media",
     date: "October 17, 2024",
 
@@ -59,7 +59,7 @@ const articles = [
   },
   {
     id: 4,
-    image: "/images/news4.jpg",
+    image: "/news4.jpg",
     category: "Press Media",
     date: "October 16, 2024",
     title: "Jewar International Airport in Greater Noida to be reality soon",
@@ -67,14 +67,14 @@ const articles = [
   // --- 4 New Articles ---
   {
     id: 5,
-    image: "/images/news5.jpg",
+    image: "/news5.jpg",
     category: "Blog",
     date: "September 22, 2024",
     title: "JMV Developers Farm",
   },
   {
     id: 6,
-    image: "/images/news6.jpg",
+    image: "/news6.jpg",
     category: "Press Media",
     date: "August 15, 2024",
     source: "Gulf News",
@@ -83,7 +83,7 @@ const articles = [
   },
   {
     id: 7,
-    image: "/images/news7.webp",
+    image: "/news7.webp",
     category: "Blog",
     date: "July 05, 2024",
     title:
@@ -91,7 +91,7 @@ const articles = [
   },
   {
     id: 8,
-    image: "/images/news8.avif",
+    image: "/news8.avif",
     category: "Press Media",
     date: "June 12, 2024",
     title:

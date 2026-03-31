@@ -28,7 +28,7 @@ export const projects: Project[] = [
     tagline: "Luxury Living in the Heart of Manhattan",
     description:
       "For over a decade, Shyam Vihar has been helping families find quality homes and plots in desirable locations, creating spaces where memories are built. Catering to both urban and suburban lifestyles, the company focuses on customer satisfaction, innovation, and modern construction practices. With strong local expertise and global standards, Shyam Vihar is committed to quality, safety, sustainability, and developing premium residential and commercial projects, primarily in Jaipur, Rajasthan.",
-    images: ["/images/project1.avif", "/images/project1.avif"],
+    images: ["/project1.avif", "/project1.avif"],
     features: [
       "10+ Years Experience",
       "Prime Locations",
@@ -55,7 +55,7 @@ export const projects: Project[] = [
     city: "Bhiwadi",
     tagline: "Modern Architecture Meets British Elegance",
     description: "",
-    images: ["/images/project2.avif", "/images/project2.avif"],
+    images: ["/project2.avif", "/project2.avif"],
     features: [
       "Concierge Service",
       "Rooftop Garden",
@@ -80,7 +80,7 @@ export const projects: Project[] = [
     city: "Bhiwadi",
     tagline: "Innovation and Tradition Combined",
     description: "",
-    images: ["/images/project3.avif", "/images/project3.avif"],
+    images: ["/project3.avif", "/project3.avif"],
     features: [
       "Smart Home Technology",
       "Onsen Spa",
@@ -105,7 +105,7 @@ export const projects: Project[] = [
     city: "shyam vihar",
     tagline: "Luxury Redefined in the Desert",
     description: "",
-    images: ["/images/project4.avif", "/images/project4.avif"],
+    images: ["/project4.avif", "/project4.avif"],
     features: ["Private Beach", "Yacht Club", "Infinity Pool", "Valet Parking"],
     location: "Dubai Marina, UAE",
     price: "Starting from AED 2,000,000",
@@ -125,7 +125,7 @@ export const projects: Project[] = [
     city: "Singapore",
     tagline: "Green Living in the Garden City",
     description: "",
-    images: ["/images/project5.avif", "/images/project5.avif"],
+    images: ["/project5.avif", "/project5.avif"],
     features: [
       "Vertical Gardens",
       "Eco-Friendly Design",
@@ -150,7 +150,7 @@ export const projects: Project[] = [
     city: "Bhiwadi",
     tagline: "Luxury Redefined in the Desert",
     description: "",
-    images: ["/images/project6.avif", "/images/project6.avif"],
+    images: ["/project6.avif", "/project6.avif"],
     features: ["Private Beach", "Yacht Club", "Infinity Pool", "Valet Parking"],
     location: "Dubai Marina, UAE",
     price: "Starting from AED 2,000,000",
@@ -170,7 +170,7 @@ export const projects: Project[] = [
     city: "shyam vihar",
     tagline: "Luxury Redefined in the Desert",
     description: "",
-    images: ["/images/project7.webp", "/images/project7.webp"],
+    images: ["/project7.webp", "/project7.webp"],
     features: ["Private Beach", "Yacht Club", "Infinity Pool", "Valet Parking"],
     location: "Dubai Marina, UAE",
     price: "Starting from AED 2,000,000",

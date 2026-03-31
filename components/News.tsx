@@ -22,7 +22,7 @@ const verticals: VerticalCard[] = [
     title: "Expressway Safety Upgrades",
     description:
       "Upgrading Yamuna Expressway with modern LED lights and secure crash barriers.",
-    image: "/images/news1.jpg",
+    image: "/news1.jpg",
     color: "from-gray-900 to-transparent",
   },
   {
@@ -31,7 +31,7 @@ const verticals: VerticalCard[] = [
     title: "Greater Noida Jewar Airport",
     description:
       "The highly anticipated Jewar International Airport is rapidly becoming reality.",
-    image: "/images/news2.jpg",
+    image: "/news2.jpg",
     color: "from-gray-900 to-transparent",
   },
   {
@@ -40,7 +40,7 @@ const verticals: VerticalCard[] = [
     title: "Strategic CRPF Base Campus",
     description:
       "Allocating 30 prime acres along the Yamuna Expressway for a new CRPF base.",
-    image: "/images/news3.jpg",
+    image: "/news3.jpg",
     color: "from-blue-900 to-transparent",
   },
   {
@@ -49,7 +49,7 @@ const verticals: VerticalCard[] = [
     title: "Successful Land Acquisition",
     description:
       "Over 118 property owners have officially agreed to support the airport growth.",
-    image: "/images/news4.jpg",
+    image: "/news4.jpg",
     color: "from-gray-900 to-transparent",
   },
   {
@@ -58,7 +58,7 @@ const verticals: VerticalCard[] = [
     title: "JMV Developers Farm Estates",
     description:
       "Discover premium agricultural spaces exclusively managed by JMV Developers.",
-    image: "/images/news5.jpg",
+    image: "/news5.jpg",
     color: "from-gray-900 to-transparent",
   },
 ];

@@ -39,7 +39,7 @@ export default function Banner() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/banner.avif"
+            src="/banner.avif"
             alt="Banner Background"
             fill
             className="object-cover"

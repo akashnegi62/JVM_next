@@ -161,7 +161,7 @@ export default function Navbar() {
               className="shrink-0 flex items-center space-x-3 cursor-pointer"
             >
               <Image
-                src="/Images/logo.png"
+                src="/logo.png"
                 alt="JMV Developers"
                 width={100}
                 height={50}
@@ -338,7 +338,7 @@ export default function Navbar() {
                 <div className="flex items-center justify-between p-4 border-b border-gray-100">
                   <div className="flex items-center space-x-2">
                     <Image
-                      src="/Images/logo.png"
+                      src="/logo.png"
                       alt="JMV Developers"
                       width={60}
                       height={30}

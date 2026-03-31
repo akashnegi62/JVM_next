@@ -9,17 +9,17 @@ import { PiBuildingsLight, PiTreePalmLight } from "react-icons/pi";
 const heroSlides = [
   {
     id: 1,
-    image: "/images/career1.avif",
+    image: "/career1.avif",
     alt: "Corporate Office Environment",
   },
   {
     id: 2,
-    image: "/images/career2.webp",
+    image: "/career2.webp",
     alt: "Team Collaboration and Meeting",
   },
   {
     id: 3,
-    image: "/images/career3.webp",
+    image: "/career3.webp",
     alt: "Luxury Real Estate Property",
   },
 ];

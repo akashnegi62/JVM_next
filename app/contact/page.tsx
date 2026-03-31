@@ -22,7 +22,7 @@ const ContactPage = () => {
       {/* --- 1. Full Height Hero Section --- */}
       <section className="relative h-screen w-full overflow-hidden">
         <Image
-          src="/images/hero/hero1.jpg"
+          src="/hero/hero1.jpg"
           alt="Luxury Resort"
           fill
           priority

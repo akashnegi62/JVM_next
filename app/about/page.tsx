@@ -62,7 +62,7 @@ const heroSlides = [
   {
     id: 1,
 
-    image: "/images/about.avif",
+    image: "/about.avif",
 
     alt: "Coastal Landscape",
   },
@@ -70,7 +70,7 @@ const heroSlides = [
   {
     id: 2,
 
-    image: "/images/about.avif",
+    image: "/about.avif",
 
     alt: "Luxury Villa Exterior",
   },
@@ -78,7 +78,7 @@ const heroSlides = [
   {
     id: 3,
 
-    image: "/images/about.avif",
+    image: "/about.avif",
 
     alt: "Modern Interior",
   },
@@ -269,7 +269,7 @@ export default function About() {
 
           <div className="relative w-full aspect-video md:aspect-21/9 lg:aspect-video overflow-hidden bg-gray-100 shadow-md">
             <Image
-              src="/images/about.avif"
+              src="/about.avif"
               alt="Luxury Waterfront Property"
               fill
               className="object-cover transition-transform duration-1000 hover:scale-105"
