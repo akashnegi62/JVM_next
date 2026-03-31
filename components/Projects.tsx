@@ -79,7 +79,10 @@ export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="relative w-full bg-white text-black min-h-screen">
+    <section
+      id="projects-section"
+      className="relative w-full bg-white text-black min-h-screen"
+    >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row px-6 md:px-12 relative py-12 md:py-0">
         {/* Left Side: Scrolling Images (HIDDEN ON MOBILE, VISIBLE ON DESKTOP) */}
         <div className="hidden md:block w-full md:w-1/2 pt-[10vh] pb-[30vh]">

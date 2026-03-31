@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { GoDotFill } from "react-icons/go";
 
@@ -48,6 +49,13 @@ const slides: Slide[] = [
 
 const SLIDE_DURATION = 5000; // 5 seconds per slide
 
+// Animation variants for the content (Title, Subtitle, and Buttons)
+const contentVariants = {
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -30 },
+};
+
 export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -60,8 +68,17 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, []);
 
+  // Smooth scroll function for the Projects button
+  const scrollToProjects = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault(); // Prevent default link jump
+    const target = document.getElementById("projects-section");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-zinc-900">
+    <section className="relative w-full h-screen overflow-hidden bg-zinc-900 font-sans text-white">
       {/* Background Images with Crossfade */}
       <AnimatePresence initial={false}>
         <motion.div
@@ -70,7 +87,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1, ease: "easeInOut" }}
-          className="absolute inset-0"
+          className="absolute inset-0 z-0"
         >
           <Image
             src={slides[currentIndex].image}
@@ -84,88 +101,90 @@ export default function Hero() {
       </AnimatePresence>
 
       {/* Gradient Overlays for readability */}
-      <div className="absolute inset-0 bg-black/20 z-10" />
+      <div className="absolute inset-0 bg-black/30 z-10" />
       <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/80 to-transparent z-10" />
-      <div className="absolute inset-x-0 top-0 h-1/3 bg-linear-to-b from-black/40 to-transparent z-10" />
+      <div className="absolute inset-x-0 top-0 h-1/3 bg-linear-to-b from-black/50 to-transparent z-10" />
 
-      {/* Content Container */}
-      <div className="absolute inset-0 z-20 flex flex-col justify-between pt-32 pb-10 px-6 md:px-12 mx-auto">
-        {/* Animated Title Text & Mobile Subtitle */}
-        <div className="w-full text-center mt-10 md:mt-0 flex flex-col items-center">
-          <AnimatePresence mode="wait">
-            <motion.h1
-              key={currentIndex}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-4xl md:text-6xl lg:text-7xl font-serif text-white tracking-wide drop-shadow-lg"
-            >
+      {/* Main Content Container (z-20) */}
+      <div className="absolute inset-0 z-20 flex flex-col justify-center items-center text-center pt-32 pb-10 px-6 md:px-12 mx-auto">
+        <AnimatePresence mode="wait">
+          {/* A Wrapper motion div to contain all animated content together */}
+          <motion.div
+            key={currentIndex}
+            variants={contentVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col items-center gap-6"
+          >
+            {/* Title */}
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif tracking-wide drop-shadow-xl">
               {slides[currentIndex].title}
-            </motion.h1>
-          </AnimatePresence>
+            </h1>
 
-          {/* Location Tag: Shown ONLY on mobile/tablet directly under the heading */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`mobile-${currentIndex}`}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="mt-6 flex lg:hidden items-center gap-2 text-white/90 font-medium tracking-widest text-xs uppercase"
-            >
-              <GoDotFill className="text-lg" />
-              <span className="border-b border-white/30 pb-1">
-                {slides[currentIndex].location}
-              </span>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Bottom Bar: Progress Indicators & Desktop Location */}
-        <div className="relative w-full flex flex-col justify-end items-center h-24">
-          {/* Location Tag: Shown ONLY on desktop (Bottom Right) */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`desktop-${currentIndex}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
-              className="hidden md:hidden lg:flex absolute right-0 bottom-6 items-center gap-2 text-white/90 font-medium tracking-widest text-sm uppercase"
-            >
+            {/* Subtitle/Location */}
+            <div className="flex items-center gap-2 text-white/90 font-medium tracking-widest text-xs md:text-sm uppercase bg-black/40 px-4 py-2 rounded-full backdrop-blur-sm">
               <GoDotFill className="text-xl" />
               <span>{slides[currentIndex].location}</span>
-            </motion.div>
-          </AnimatePresence>
+            </div>
 
-          {/* Progress Bars (Centered) */}
-          <div className="flex gap-2 md:gap-3 absolute bottom-6 left-1/2 -translate-x-1/2">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className="h-0.5 w-8 md:w-12 bg-white/30 relative overflow-hidden rounded-full cursor-pointer hover:bg-white/50 transition-colors"
-                aria-label={`Go to slide ${index + 1}`}
-              >
-                {index === currentIndex && (
-                  <motion.div
-                    key={currentIndex}
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{
-                      duration: SLIDE_DURATION / 1000,
-                      ease: "linear",
-                    }}
-                    style={{ originX: 0 }}
-                    className="absolute inset-0 bg-white"
-                  />
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
+            {/* --- BUTTONS SECTION --- */}
+            {slides[currentIndex].id === 1 && (
+              <div className="mt-8 flex flex-col sm:flex-row gap-5 items-center">
+                {/* Button A: Link to About Us Page */}
+                <Link
+                  href="/about"
+                  className="group relative flex items-center gap-3 px-8 py-3.5 border border-white/80 rounded-full font-semibold tracking-wide hover:bg-white hover:text-black transition-all duration-300 shadow-xl"
+                >
+                  <span className="text-sm uppercase">About Us</span>
+                  <span className="transform group-hover:translate-x-1 transition-transform duration-300">
+                    &rarr;
+                  </span>
+                </Link>
+
+                {/* Button B: Scroll to Projects Section */}
+                <Link
+                  href="#projects-section"
+                  onClick={scrollToProjects}
+                  className="group relative flex items-center gap-3 px-8 py-3.5 bg-black/50 backdrop-blur-md border border-white/20 rounded-full text-white/90 font-semibold tracking-wide hover:bg-white hover:text-black transition-all duration-300 shadow-xl"
+                >
+                  <span className="text-sm uppercase">Projects</span>
+                  <span className="transform group-hover:translate-x-1 transition-transform duration-300">
+                    &rarr;
+                  </span>
+                </Link>
+              </div>
+            )}
+            {/* --- END BUTTONS SECTION --- */}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* --- Progress Bars --- */}
+      <div className="absolute inset-x-0 bottom-6 z-30 flex gap-2 md:gap-3 justify-center items-center">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className="h-0.5 w-10 md:w-16 bg-white/30 relative overflow-hidden rounded-full cursor-pointer hover:bg-white/50 transition-colors"
+            aria-label={`Go to slide ${index + 1}`}
+          >
+            {index === currentIndex && (
+              <motion.div
+                key={currentIndex}
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{
+                  duration: SLIDE_DURATION / 1000,
+                  ease: "linear",
+                }}
+                style={{ originX: 0 }}
+                className="absolute inset-0 bg-white"
+              />
+            )}
+          </button>
+        ))}
       </div>
     </section>
   );
