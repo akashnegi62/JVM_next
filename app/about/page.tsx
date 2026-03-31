@@ -62,8 +62,7 @@ const heroSlides = [
   {
     id: 1,
 
-    image:
-      "https://images.unsplash.com/photo-1544376798-89aa6b82c6cd?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/about.avif",
 
     alt: "Coastal Landscape",
   },
@@ -71,8 +70,7 @@ const heroSlides = [
   {
     id: 2,
 
-    image:
-      "https://images.unsplash.com/photo-1613490900233-08fb760f5844?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/about.avif",
 
     alt: "Luxury Villa Exterior",
   },
@@ -80,8 +78,7 @@ const heroSlides = [
   {
     id: 3,
 
-    image:
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/about.avif",
 
     alt: "Modern Interior",
   },
@@ -151,23 +148,8 @@ export default function About() {
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="text-4xl md:text-5xl lg:text-[4.5rem] font-serif text-white leading-[1.1] drop-shadow-lg mb-6 max-w-3xl"
               >
-                Crafting a Legacy of
-                <br /> Unrivaled Distinction
+                Building a Legacy of <br /> Trusted Excellence
               </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                className="text-gray-200 text-sm md:text-base max-w-2xl font-light leading-relaxed drop-shadow-md"
-              >
-                Our success stems from a team of visionary real estate
-                professionals devoted to redefining luxury waterfront living.
-                With expertise and passion, we craft developments that transcend
-                mere residences, creating timeless masterpieces that elevate
-                lifestyles and set new benchmarks for sophistication, comfort,
-                and exclusivity.
-              </motion.p>
             </div>
 
             {/* Right: Slider Controls */}
@@ -213,7 +195,7 @@ export default function About() {
           className="w-full lg:w-5/12 flex flex-col justify-between"
         >
           <h2 className="text-5xl md:text-6xl lg:text-[4.5rem] font-serif text-[#4a4f55] leading-[1.15] tracking-tight max-w-md">
-            Redefining Luxury, One Destination at a Time
+            Building Trust, Delivering Quality—One Home at a Time
           </h2>
 
           {/* Animated Stats Row */}
@@ -263,33 +245,31 @@ export default function About() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="w-full lg:w-7/12 flex flex-col gap-6"
         >
-          <p className="text-gray-600 font-light text-[14px] md:text-[15px] leading-relaxed text-justify md:text-left">
-            JMV Developers is an award-winning luxury property developer,
-            delivering world-class hotels and resorts across the Caribbean since
-            2011, including government-approved real estate projects aligned
-            with Citizenship by Investment (CBI) programmes. With projects in
-            four countries, its portfolio includes Park Hyatt St. Kitts, named
-            CNN &apos; s Best New Hotel (2017), and InterContinental Dominica
-            Cabrits, recognised by Forbes as the most anticipated Caribbean
-            hotel (2019). In 2024, Six Senses La Sagesse opened in Grenada, with
-            InterContinental Grenada - La Sagesse, The La Sagesse Collection
-            Residences, and a superyacht marina in Dominica set for completion
-            in 2026-2027.
+          <p className="text-gray-600 font-light text-sm md:text-xl leading-relaxed text-justify md:text-left">
+            JMV Developers, established in 2008, is a renowned real estate brand
+            delivering quality residential and lifestyle projects across India.
+            With a strong network and years of industry experience, the company
+            specializes in residential plots, builder floors, villas, and
+            farmhouses. Known for its commitment to quality, timely delivery,
+            and customer satisfaction, JMV Developers continues to create
+            well-planned communities that meet modern living standards and
+            diverse lifestyle needs.
           </p>
 
-          <p className="text-gray-600 font-light text-[14px] md:text-[15px] leading-relaxed text-justify md:text-left mb-6">
-            Expanding into the UAE in 2020, JMV Developers is shaping luxury
-            real estate across the country, from bespoke villas to exclusive
-            waterfront developments—while continuing to offer CBI-aligned,
-            government-approved opportunities within select Caribbean projects
-            for clients seeking both lifestyle and global mobility.
+          <p className="text-gray-600 font-light text-sm md:text-xl leading-relaxed text-justify md:text-left mb-6">
+            Expanding its footprint in recent years, JMV Developers is shaping
+            quality real estate across key locations, from residential plots to
+            builder floors, villas, and farmhouses—while continuing to deliver
+            well-planned, customer-focused developments that combine modern
+            living, strategic locations, and long-term value for homeowners and
+            investors alike.
           </p>
 
           {/* Featured Right-Side Image */}
 
           <div className="relative w-full aspect-video md:aspect-21/9 lg:aspect-video overflow-hidden bg-gray-100 shadow-md">
             <Image
-              src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop"
+              src="/images/about.avif"
               alt="Luxury Waterfront Property"
               fill
               className="object-cover transition-transform duration-1000 hover:scale-105"

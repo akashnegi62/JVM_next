@@ -9,27 +9,24 @@ import { FiChevronDown } from "react-icons/fi";
 const heroSlides = [
   {
     id: 1,
-    image:
-      "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/news1.jpg",
     subtitle: "Media Centre",
     title:
-      "Discover Paradise: Why Six Senses La Sagesse, Grenada is a One-MICHELIN-Key Luxury Escape",
+      "Upgrading Yamuna Expressway with modern LED lights and secure crash barriers.",
   },
   {
     id: 2,
-    image:
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/news2.jpg",
     subtitle: "Awards & Recognition",
     title:
-      "The Beach Vista Takes Top Honors at the Global Architecture Awards 2025",
+      "The highly anticipated Jewar International Airport is rapidly becoming reality.",
   },
   {
     id: 3,
-    image:
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/news3.jpg",
     subtitle: "New Launch",
     title:
-      "Unveiling Island Heights: The New Standard of Luxury Living in the UAE",
+      "Allocating 30 prime acres along the Yamuna Expressway for a new CRPF base.",
   },
 ];
 
@@ -37,75 +34,68 @@ const heroSlides = [
 const articles = [
   {
     id: 1,
-    image:
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1000&auto=format&fit=crop",
+    image: "/images/news1.jpg",
     category: "Press Media",
     date: "October 10, 2025",
-    title: "The Beach Vista Recognised at the UAE Realty Awards 2025",
+    title:
+      "Upgrading Yamuna Expressway with modern LED lights and secure crash barriers.",
   },
   {
     id: 2,
-    image:
-      "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=1000&auto=format&fit=crop",
+    image: "/images/news2.jpg",
     category: "Press Media",
     date: "October 30, 2024",
     title:
-      "Discover Paradise: Why Six Senses La Sagesse, Grenada is a One-MICHELIN-Key Luxury Escape",
+      "The highly anticipated Jewar International Airport is rapidly becoming reality.",
   },
   {
     id: 3,
-    image:
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1000&auto=format&fit=crop",
+    image: "/images/news3.jpg",
     category: "Press Media",
     date: "October 17, 2024",
-    source: "Russian Emirates",
-    title: "В Дубае состоялась презентация жилого комплекса Beach Vista",
+
+    title:
+      "Allocating 30 prime acres along the Yamuna Expressway for a new CRPF base.",
   },
   {
     id: 4,
-    image:
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000&auto=format&fit=crop",
+    image: "/images/news4.jpg",
     category: "Press Media",
     date: "October 16, 2024",
-    source: "Arabian Business",
-    title:
-      "Introducing the prestigious launch of The Beach Vista, Al Marjan Island",
+    title: "Jewar International Airport in Greater Noida to be reality soon",
   },
   // --- 4 New Articles ---
   {
     id: 5,
-    image:
-      "https://images.unsplash.com/photo-1613490900233-08fb760f5844?q=80&w=1000&auto=format&fit=crop",
+    image: "/images/news5.jpg",
     category: "Blog",
     date: "September 22, 2024",
-    title: "Top 5 Reasons to Invest in Al Marjan Island Real Estate",
+    title: "JMV Developers Farm",
   },
   {
     id: 6,
-    image:
-      "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=1000&auto=format&fit=crop",
+    image: "/images/news6.jpg",
     category: "Press Media",
     date: "August 15, 2024",
     source: "Gulf News",
-    title: "Island Heights Reaches 50% Completion Milestone Ahead of Schedule",
+    title:
+      "Delhi-Mumbai 12-hour Expressway to come soon:List of expressways that you must know",
   },
   {
     id: 7,
-    image:
-      "https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=1000&auto=format&fit=crop",
+    image: "/images/news7.webp",
     category: "Blog",
     date: "July 05, 2024",
     title:
-      "Designing the Future: Sustainable Architecture in Coastal Developments",
+      "Delhi's IGI and Noida's upcoming Jewar airport to be connected! Govt plans 40 km elevated road",
   },
   {
     id: 8,
-    image:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1000&auto=format&fit=crop",
+    image: "/images/news8.avif",
     category: "Press Media",
     date: "June 12, 2024",
-    source: "Khaleej Times",
-    title: "Record Sales Recorded in Q2 for Luxury Beachfront Villas",
+    title:
+      "UP government signs MoU to fast-track work on Jewar International Airport",
   },
 ];
 
@@ -283,12 +273,6 @@ export default function News() {
                   <span className="uppercase">{article.category}</span>
                   <span>|</span>
                   <span>{article.date}</span>
-                  {article.source && (
-                    <>
-                      <span>|</span>
-                      <span className="text-gray-400">{article.source}</span>
-                    </>
-                  )}
                 </div>
 
                 {/* Article Title */}

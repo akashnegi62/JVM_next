@@ -155,7 +155,7 @@ export default function Project() {
           className="relative h-112 md:h-137 w-full"
         >
           <Image
-            src={project.images[1] || project.images[0]}
+            src={project.images[0] || project.images[0]}
             alt={`${project.name} exterior`}
             fill
             className="object-cover shadow-xl"

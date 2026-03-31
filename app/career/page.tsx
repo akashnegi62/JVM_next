@@ -137,11 +137,14 @@ export default function Career() {
             <br /> Job Opportunities
           </h2>
           <p className="text-gray-500 leading-relaxed mb-8 font-light text-[15px] md:text-lg lg:text-xl pr-4">
-            Join a network of leading real estate brokers and investment
-            advisors representing award-winning projects across the UAE and the
-            Caribbean. JMV Developers has built a reputation for delivering
-            high-quality luxury projects and trusted CBI pathways, giving your
-            clients opportunities that stand out in the global market.
+            Join a network of passionate professionals and industry experts
+            shaping the future of real estate in India. JMV Developers has built
+            a strong reputation for quality, trust, and timely delivery,
+            offering diverse residential opportunities including plots, builder
+            floors, villas, and farmhouses. Be part of a people-first
+            organization that values excellence, growth, and
+            innovation—empowering you to deliver meaningful solutions and create
+            lasting impact for clients.
           </p>
 
           <div className="w-full mt-2">
@@ -173,7 +176,7 @@ export default function Career() {
           {/* Column 1: UAE Projects */}
           <div className="w-full sm:w-1/2 sm:pr-12 flex flex-col">
             <h3 className="text-[14px] font-semibold text-teal-800 mb-8">
-              Positions
+              Explore Careers in Real Estate.
             </h3>
 
             <div className="text-[#5b7380] mb-6">
@@ -181,12 +184,10 @@ export default function Career() {
             </div>
 
             <h4 className="text-[13px] uppercase tracking-wider font-bold text-slate-800 mb-4">
-              UAE PROJECTS AGENT
+              Job Titles
             </h4>
             <p className="text-gray-500 font-light text-[15px] leading-relaxed">
-              Represent our UAE projects on Al Marjan Island and access
-              up-to-date inventories, marketing materials, and dedicated sales
-              support.
+              Real Estate Clerk, Real Estate Manager, Sales Assistant
             </p>
           </div>
 
@@ -197,11 +198,11 @@ export default function Career() {
             </div>
 
             <h4 className="text-[13px] uppercase tracking-wider font-bold text-slate-800 mb-4">
-              CBI CARIBBEAN SERVICE PARTNER
+              Skill Sets
             </h4>
             <p className="text-gray-500 font-light text-[15px] leading-relaxed">
-              Offer clients government-approved CBI opportunities backed by our
-              established Caribbean developments.
+              High Performance, Passionate Teamwork, Dedication, Energetic,
+              Problem Solving, Initiative & Enterprise
             </p>
           </div>
         </motion.div>

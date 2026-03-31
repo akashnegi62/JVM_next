@@ -236,7 +236,7 @@ export default function Navbar() {
                             className="flex items-center space-x-3 px-4 py-3 hover:bg-amber-50 transition-colors"
                             onClick={() => setIsServicesOpen(false)}
                           >
-                            <project.icon className="text-amber-600 text-sm" />
+                            <project.icon className="text-black text-sm" />
                             <span className="text-gray-700 font-medium">
                               {project.name}
                             </span>
