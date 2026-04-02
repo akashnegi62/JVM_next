@@ -44,22 +44,22 @@ export default function Project() {
     {
       icon: <PiCubeLight />,
       title: "SURFACE AREA",
-      desc: project.projectDetails?.surfaceArea || "N/A",
+      desc: project.surfaceArea || "N/A",
     },
     {
       icon: <PiBuildingsLight />,
       title: "COMPLETED",
-      desc: project.projectDetails?.yearCompleted || "N/A",
+      desc: project.yearCompleted || "N/A",
     },
     {
       icon: <PiHouseLineLight />,
       title: "VALUE",
-      desc: `₹ ${project.projectDetails?.value || "N/A"}`,
+      desc: `₹ ${project.value || "N/A"}`,
     },
     {
       icon: <PiTreePalmLight />,
       title: "ARCHITECT",
-      desc: project.projectDetails?.architect || "N/A",
+      desc: project.architect || "N/A",
     },
   ];
 
@@ -108,7 +108,7 @@ export default function Project() {
           className="pr-0 md:pr-8"
         >
           <h2 className="text-4xl md:text-5xl font-serif text-gray-800 mb-6 leading-[1.15]">
-            {project.tagline || "Discover Premium Living and Architecture"}
+            {project.name}
           </h2>
 
           <p className="text-gray-500 mb-12 text-lg md:text-xl lg:text-xl leading-relaxed max-w-lg">
