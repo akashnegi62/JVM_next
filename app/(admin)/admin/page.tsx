@@ -173,7 +173,7 @@ export default async function AdminDashboard() {
                 key={activity.id}
                 className="p-4 hover:bg-gray-800/50 transition-colors flex items-start gap-4"
               >
-                <div className="w-10 h-10 rounded-full bg-linear-to-br from-gray-600 to-gray-700 flex items-center justify-center text-white text-sm font-medium flex-shrink-0 border border-gray-600">
+                <div className="w-10 h-10 rounded-full bg-linear-to-br from-gray-600 to-gray-700 flex items-center justify-center text-white text-sm font-medium shrink-0 border border-gray-600">
                   {activity.avatar}
                 </div>
                 <div className="flex-1 min-w-0">
