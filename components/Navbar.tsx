@@ -172,7 +172,7 @@ export default function Navbar() {
                 transition={{ duration: 0.3 }}
                 className="flex flex-col"
               >
-                <span className="font-bold text-2xl leading-tight">JVM</span>
+                <span className="font-bold text-2xl leading-tight">JMV</span>
                 <span className="text-sm font-semibold tracking-wide">
                   DEVELOPERS
                 </span>
@@ -346,7 +346,7 @@ export default function Navbar() {
                     />
                     <div className="flex flex-col">
                       <span className="font-bold text-base text-amber-600">
-                        JVM
+                        JMV
                       </span>
                       <span className="text-xs font-semibold text-gray-500">
                         DEVELOPERS
