@@ -1,33 +1,36 @@
-import { NextRequest, NextResponse } from "next/server";
-import { SignJWT } from "jose";
-import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from 'next/server';
+import pool from '@/lib/db';
+import { verifyPassword, createToken, setAuthCookie } from '@/lib/auth';
+import { z } from 'zod';
 
-const VALID_USER = "admin";
-const VALID_PASS = "password";
-const secret = new TextEncoder().encode("my-super-secret-key-123");
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(1),
+});
 
 export async function POST(req: NextRequest) {
-  const { username, password } = await req.json();
+  try {
+    const body = await req.json();
+    const parsed = loginSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
+    }
 
-  if (username === VALID_USER && password === VALID_PASS) {
-    const token = await new SignJWT({ role: "admin", user: username })
-      .setProtectedHeader({ alg: "HS256" })
-      .setIssuedAt()
-      .setExpirationTime("1d")
-      .sign(secret);
+    const { email, password } = parsed.data;
+    const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+    // @ts-expect-error mysql2 returns array
+    const user = rows[0];
 
-    // ✅ Fix: await cookies()
-    const cookieStore = await cookies();
-    cookieStore.set("auth_token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax", // "lax" works better for local dev redirects
-      maxAge: 60 * 60 * 24,
-      path: "/",
-    });
+    if (!user || !(await verifyPassword(password, user.password_hash))) {
+      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+    }
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    const token = await createToken({ id: user.id, email: user.email });
+    await setAuthCookie(token);
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Login error:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
-
-  return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
 }
