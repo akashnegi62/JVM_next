@@ -9,7 +9,7 @@ if (!process.env.DATABASE_URL) {
 const pool = mysql.createPool({
   uri: process.env.DATABASE_URL,
   waitForConnections: true,
-  connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT || '10', 10),
+  connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT || '5', 10),
   queueLimit: 0,
   enableKeepAlive: true,
   keepAliveInitialDelay: 0,
