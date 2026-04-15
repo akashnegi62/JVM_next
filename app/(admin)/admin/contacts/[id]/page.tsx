@@ -24,7 +24,6 @@ export default function ContactDetailPage() {
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState("");
 
-  // FETCH CONTACT
   useEffect(() => {
     if (!id) return;
 
@@ -46,7 +45,6 @@ export default function ContactDetailPage() {
     fetchContact();
   }, [id]);
 
-  // DELETE CONTACT
   const handleDelete = async () => {
     if (!confirm("Are you sure you want to delete this contact?")) return;
 
@@ -67,72 +65,132 @@ export default function ContactDetailPage() {
     }
   };
 
-  // STATES
   if (loading) {
-    return <p className="text-gray-500">Loading contact...</p>;
+    return (
+      <div className="min-h-screen p-4 sm:p-6 text-white">
+        <div className="mx-auto max-w-5xl">
+          <div className="animate-pulse rounded-2xl border border-slate-800 bg-slate-900 p-6 text-slate-400">
+            Loading contact...
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
-    return <p className="text-red-500">{error}</p>;
+    return (
+      <div className="min-h-screen p-4 sm:p-6 text-white">
+        <div className="mx-auto max-w-5xl">
+          <div className="rounded-2xl border border-red-500/30 bg-red-500/10 p-6 text-red-300">
+            {error}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (!contact) {
-    return <p>No contact found</p>;
+    return (
+      <div className="min-h-screen p-4 sm:p-6 text-white">
+        <div className="mx-auto max-w-5xl">
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 text-slate-400">
+            No contact found.
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
-      {/* HEADER */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Contact Details</h1>
+    <div className="min-h-screen p-4 sm:p-6 text-white">
+      <div className="mx-auto max-w-5xl space-y-6">
+        {/* Header */}
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-white sm:text-3xl">
+              Contact Details
+            </h1>
+            <p className="mt-1 text-sm text-slate-400 sm:text-base">
+              View and manage submitted contact information
+            </p>
+          </div>
 
-        <button
-          onClick={() => router.push("/admin/contacts")}
-          className="text-sm text-gray-500 underline"
-        >
-          ← Back
-        </button>
-      </div>
-
-      {/* CARD */}
-      <div className="bg-white shadow rounded-xl p-6 space-y-4 border">
-        <div>
-          <p className="text-sm text-gray-500">Name</p>
-          <p className="font-medium">{contact.name}</p>
+          <button
+            onClick={() => router.push("/admin/contacts")}
+            className="w-full rounded-xl border border-blue-500/30 bg-blue-500/10 px-5 py-3 text-sm font-medium text-blue-400 transition hover:bg-blue-500/20 sm:w-auto"
+          >
+            Back
+          </button>
         </div>
 
-        <div>
-          <p className="text-sm text-gray-500">Email</p>
-          <p className="font-medium">{contact.email}</p>
+        {/* Contact Card */}
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl">
+          <div className="border-b border-slate-800 px-5 py-4 sm:px-6">
+            <h2 className="text-lg font-semibold text-blue-400">
+              Contact Information
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 p-5 sm:p-6 md:grid-cols-2">
+            <div className="space-y-1">
+              <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+                Name
+              </p>
+              <p className="wrap-break-word text-base font-medium text-white">
+                {contact.name}
+              </p>
+            </div>
+
+            <div className="space-y-1">
+              <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+                Email
+              </p>
+              <p className="break-all text-base text-slate-300">
+                {contact.email}
+              </p>
+            </div>
+
+            <div className="space-y-1">
+              <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+                Phone
+              </p>
+              <p className="text-base text-slate-300">
+                {contact.phone || "Not provided"}
+              </p>
+            </div>
+
+            <div className="space-y-1">
+              <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+                Submitted At
+              </p>
+              <p className="text-base text-slate-300">
+                {new Date(contact.createdAt).toLocaleString()}
+              </p>
+            </div>
+
+            <div className="space-y-2 md:col-span-2">
+              <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+                Message
+              </p>
+              <div className="rounded-xl border border-slate-800 bg-slate-800/40 p-4">
+                <p className="whitespace-pre-line wrap-break-word text-base leading-7 text-slate-300">
+                  {contact.message}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div>
-          <p className="text-sm text-gray-500">Phone</p>
-          <p className="font-medium">{contact.phone || "Not provided"}</p>
+        {/* Actions */}
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <button
+            onClick={handleDelete}
+            disabled={deleting}
+            className="w-full rounded-xl bg-red-600 px-6 py-3 text-sm font-medium text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+          >
+            {deleting ? "Deleting..." : "Delete Contact"}
+          </button>
         </div>
-
-        <div>
-          <p className="text-sm text-gray-500">Message</p>
-          <p className="font-medium whitespace-pre-line">{contact.message}</p>
-        </div>
-
-        <div>
-          <p className="text-sm text-gray-500">Submitted At</p>
-          <p className="font-medium">
-            {new Date(contact.createdAt).toLocaleString()}
-          </p>
-        </div>
-      </div>
-
-      {/* ACTIONS */}
-      <div className="flex gap-4">
-        <button
-          onClick={handleDelete}
-          disabled={deleting}
-          className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition"
-        >
-          {deleting ? "Deleting..." : "Delete Contact"}
-        </button>
       </div>
     </div>
   );

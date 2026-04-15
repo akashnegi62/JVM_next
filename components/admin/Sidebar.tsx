@@ -15,7 +15,7 @@ import {
 } from "react-icons/bs";
 
 const navItems = [
-  { name: "Dashboard", href: "/admin", icon: BsGrid },
+  { name: "Dashboard", href: "/admin/dashboard", icon: BsGrid },
   { name: "Projects", href: "/admin/projects", icon: BsKanban },
   { name: "Contacts", href: "/admin/contacts", icon: BsEnvelope },
   { name: "Users", href: "/admin/users", icon: BsPeople },
@@ -28,17 +28,16 @@ export default function Sidebar() {
   const [logoutLoading, setLogoutLoading] = useState(false);
 
   const handleLogout = async () => {
-    setLogoutLoading(true);
-    try {
-      await fetch("/api/auth/logout", { method: "POST" });
-      router.push("/login");
-      router.refresh();
-    } catch (error) {
-      console.error("Logout failed", error);
-    } finally {
-      setLogoutLoading(false);
-    }
-  };
+  setLogoutLoading(true);
+  try {
+    await fetch("/api/auth/logout", { method: "POST" });
+    router.push("/");   
+  } catch (error) {
+    console.error("Logout failed", error);
+  } finally {
+    setLogoutLoading(false);
+  }
+};
 
   return (
     <aside
